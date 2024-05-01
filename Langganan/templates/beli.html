@@ -1,0 +1,49 @@
+{% block content %}
+<h2>Halaman Beli</h2>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+
+<h3>Informasi Paket yang Ingin Dibeli:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>Harga</th>
+            <th>Resolusi Layar</th>
+            <th>Dukungan Perangkat</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>{{ paket.nama }}</td>
+            <td>{{ paket.harga }}</td>
+            <td>{{ paket.resolusi_layar }}</td>
+            <td>{{ paket.dukungan_perangkat|join:", " }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<h3>Pilih Metode Pembayaran:</h3>
+<form method="post" action="{% url 'proses_pembayaran' %}">
+    {% csrf_token %}
+    <select name="metode_pembayaran">
+        <option value="transfer_bank">Transfer Bank</option>
+        <option value="kartu_kredit">Kartu Kredit</option>
+        <option value="e_wallet">E-Wallet</option>
+    </select>
+    <button type="submit">Bayar</button>
+</form>
+{% endblock %}
