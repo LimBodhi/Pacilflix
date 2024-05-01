@@ -1,0 +1,103 @@
+{% block content %}
+<h2>Halaman Kelola Langganan</h2>
+
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+    .beli-button {
+        background-color: #0077b6;
+        border: none;
+        color: white;
+        padding: 6px 10px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 14px;
+        cursor: pointer;
+    }
+</style>
+
+<h3>Paket Langganan Aktif Anda:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Nama Paket</th>
+            <th>Harga</th>
+            <th>Resolusi Layar</th>
+            <th>Dukungan Perangkat</th>
+            <th>Tanggal Dimulai</th>
+            <th>Tanggal Akhir</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaksi in transaksi_data %}
+        <tr>
+            <td>{{ transaksi.nama_paket }}</td>
+            <td>{{ transaksi.harga }}</td>
+            <td>{{ transaksi.resolusi_layar }}</td>
+            <td>{{ transaksi.dukungan_perangkat|join:", " }}</td>
+            <td>{{ transaksi.start_date_time }}</td>
+            <td>{{ transaksi.end_date_time }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Pilih Paket Lain:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Nama Paket</th>
+            <th>Harga</th>
+            <th>Resolusi Layar</th>
+            <th>Dukungan Perangkat</th>
+            <th>Beli</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for paket in paket_data %}
+        <tr>
+            <td>{{ paket.nama }}</td>
+            <td>{{ paket.harga }}</td>
+            <td>{{ paket.resolusi_layar }}</td>
+            <td>{{ paket.dukungan_perangkat|join:", " }}</td>
+            <td><a href="{% url 'beli_paket' paket.nama %}" class="beli-button">Beli</a></td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<h3>Riwayat Transaksi:</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Nama Paket</th>
+            <th>Tanggal Dimulai</th>
+            <th>Tanggal Akhir</th>
+            <th>Metode Pembayaran</th>
+            <th>Total Pembayaran</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for transaksi in transaksi_data %}
+        <tr>
+            <td>{{ transaksi.nama_paket }}</td>
+            <td>{{ transaksi.start_date_time }}</td>
+            <td>{{ transaksi.end_date_time }}</td>
+            <td>{{ transaksi.metode_pembayaran }}</td>
+            <td>{{ transaksi.harga }}</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
