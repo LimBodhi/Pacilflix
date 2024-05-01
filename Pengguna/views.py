@@ -1,14 +1,26 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.shortcuts import redirect, render
 from utils.query import query
-from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
+import random
 
+def register(request):
+    if "username" in request.session:
+        # TODO: Ganti redirect jadi ke "Shows" (daftar tayangan)
+        return redirect("main:show_main")
+    context = {}
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        negara_asal = request.POST.get("country")
 
-def show_pengguna(request):
-    query_str = "SELECT * FROM DAFTAR_UNDUHAN"
-    hasil = query(query_str)
-    return render(request, 'index.html', {'akun': hasil})
+        random_show = str(random.choice(query("SELECT id FROM tayangan"))["id"])
+
+        exists = query(
+            "SELECT * FROM PENGGUNA WHERE username = %s", (username,))
+        if len(exists) > 0:
+            context["message"] = "Username already taken. Please choose another username."
+        else:
+            data = query("INSERT INTO PENGGUNA (username, password, id_tayangan, negara_asal) VALUES (%s,%s,%s,%s)",
+                         (username, password, random_show, negara_asal))
+            request.session["message"] = "Account creation successful! You can log in now."
+            return redirect("authentication:login")
+    return render(request, "register.html", context)
