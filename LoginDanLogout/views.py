@@ -1,14 +1,36 @@
-from django.shortcuts import render
-
-# Create your views here.
-from django.shortcuts import render
-from django.http import JsonResponse
+from django.shortcuts import redirect, render
 from utils.query import query
-from django.shortcuts import render, redirect
-from django.views.decorators.csrf import csrf_exempt
 
+def show_main(request):
+    context = { "is_logged_in": False }
 
-def show_login(request):
-    query_str = "SELECT * FROM DAFTAR_UNDUHAN"
-    hasil = query(query_str)
-    return render(request, 'index.html', {'akun': hasil})
+    if "username" in request.session:
+        context["is_logged_in"] = True
+        context["username"] = request.session["username"]
+
+    return render(request, "main.html", context)
+
+def login(request):
+    context = {}
+    if "username" in request.session:
+        # TODO: Nanti ganti redirect jadi ke "Shows" (daftar tayangan)
+        return redirect("LoginDanLogout:show_main")
+    if "message" in request.session:
+        context["message"] = request.session["message"]
+        del request.session["message"]
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        data = query(
+            "SELECT username, password FROM PENGGUNA WHERE username = %s AND password = %s", (username, password))
+        if len(data) == 1:
+            request.session["username"] = username
+            # TODO: Nanti ganti redirect jadi ke "Shows" (daftar tayangan)
+            return redirect("LoginDanLogout:show_main")
+        else:
+            context["message"] = "Login failed. Make sure you've inputted the correct credentials."
+    return render(request, "login.html", context)
+
+def logout(request):
+    del request.session["username"]
+    return redirect("LoginDanLogout:show_main")
