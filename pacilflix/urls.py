@@ -19,13 +19,13 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('Langganan.urls')),
-    path('', include('DaftarFavorit.urls')),
-    path('', include('daftarKontributor.urls')),
-    path('', include('DaftarUnduhan.urls')),
-    path('', include('LoginDanLogout.urls')),
-    path('', include('Pengguna.urls')),
-    path('', include('Tayangan.urls')),
-    path('', include('Trailer.urls')),
-    path('', include('Ulasan.urls')),
+    path('langganan/', include('Langganan.urls')),
+    path('favorit/', include('DaftarFavorit.urls')),
+    path('kontributor/', include('daftarKontributor.urls')),
+    path('unduhan/', include('DaftarUnduhan.urls')),
+    path(' ', include('LoginDanLogout.urls')),
+    path('pengguna/', include('Pengguna.urls')),
+    path('tayangan/', include('Tayangan.urls')),
+    path('trailer/', include('Trailer.urls')),
+    path('ulasan/', include('Ulasan.urls')),
 ]
