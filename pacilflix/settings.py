@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Langganan',
     'DaftarFavorit',
-    'daftarKontributor'
+    'daftarKontributor',
     'DaftarUnduhan',
     'LoginDanLogout',
     'Pengguna',

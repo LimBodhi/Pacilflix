@@ -1,3 +1,28 @@
 from django.shortcuts import render
+from django.http import HttpResponseBadRequest, JsonResponse
+from utils.query import query
+from django.shortcuts import render, redirect
+from django.views.decorators.csrf import csrf_exempt
 
-# Create your views here.
+#Fungsi untuk memanggil semua tayangan favorit user, dalam hal ini contohnya pengguna0
+def show_favorit(request):
+    query_str = '''
+                SELECT judul, timestamp, username from daftar_favorit where username = 'pengguna0' ORDER BY timestamp ASC;
+                '''
+    #menjakankan query 
+    hasil = query(query_str)
+    print(hasil)
+    #melakukan format waktu
+    for data in hasil:
+        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    
+    return render(request, 'index.html', {'unduhan': hasil})
+
+#Fungsi untuk menghapus tayangan yang telah difavoritkan oleh user
+def remove_favorit(request):
+    if request.method == 'POST':
+        judul = request.POST.get('judul')
+        username = request.POST.get('username')
+        query_str = f"DELETE FROM daftar_favorit WHERE judul = '{judul}' and username = '{username}';"
+        query(query_str)
+    return redirect('show_unduhan')

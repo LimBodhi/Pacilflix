@@ -1,0 +1,49 @@
+{% block content %}
+    <h1>Daftar Favorit</h1>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 50%;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .remove-button {
+            background-color: #f44336;
+            border: none;
+            color: white;
+            padding: 6px 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+    <table>
+        <tr>
+            <th>Judul</th>
+            <th>Waktu Ditambahkan</th>
+            <th>Aksi</th> <!-- New column for the remove button -->
+        </tr>
+        {% for film in favorit %}
+            <tr>
+                <td>{{ film.judul }}</td>
+                <td>{{ film.formatted_timestamp }}</td>
+                <td>
+                    <form action="{% url 'remove_favorit' %}" method="post">
+                        {% csrf_token %}
+                        <input type="hidden" name="judul" value="{{ film.judul }}">
+                        <input type="hidden" name="username" value="{{ film.username }}">
+                        <button type="submit" class="remove-button">Hapus</button>
+                    </form>
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
