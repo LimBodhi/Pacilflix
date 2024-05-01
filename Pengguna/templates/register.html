@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-[#242831] font-inter_tight pb-16">
+    <div class="mb-12 text-slate-100 text-center">
+        <h1 class="pt-16 pb-4 font-bold text-5xl drop-shadow-md">Register to <span class="bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">PacilFlix</span></h1>
+    </div>
+    <div class="mx-auto max-w-sm">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="grid grid-cols-1 gap-y-7 text-white font-inter">
+                <div>
+                    <p class="text-sm font-bold mb-2">Username</p>
+                    <input oninput="validateUsernameMsg()" id="id_username" class="w-full rounded-lg border border-gray-500 px-4 py-3 bg-[#333845]" type="text" name="username" id="username" placeholder="Username">
+                    <p class="absolute text-xs text-red-500 pt-1" id="username-msg"></p>
+                </div>
+                <div>
+                    <p class="text-sm font-bold mb-2">Password</p>
+                    <input oninput="validatePasswordMsg()" id="id_password" class="w-full rounded-lg border border-gray-500 px-4 py-3 bg-[#333845]" type="password" name="password" id="password" placeholder="Password" required>
+                    <p class="absolute text-xs text-red-500 pt-1" id="password-msg"></p>
+                </div>
+                <div>
+                    <p class="text-sm font-bold mb-2">Negara Asal</p>
+                    <select onchange="validateCountryMsg()" id="id_country" name="country" class="w-full rounded-lg border border-gray-500 px-4 py-3 bg-[#333845]">
+                        <option value="" disabled selected>Pilih negara asal Anda</option>
+                        <option value="Australia">Australia</option>
+                        <option value="Belgium">Belgium</option>
+                        <option value="Canada">Canada</option>
+                        <option value="Czech Republic">Czech Republic</option>
+                        <option value="Denmark">Denmark</option>
+                        <option value="Egypt">Egypt</option>
+                        <option value="France">France</option>
+                        <option value="Greece">Greece</option>
+                        <option value="Hong Kong">Hong Kong</option>
+                        <option value="Hungary">Hungary</option>
+                        <option value="Iceland">Iceland</option>
+                        <option value="India">India</option>
+                        <option value="Indonesia">Indonesia</option>
+                        <option value="Ireland">Ireland</option>
+                        <option value="Italy">Italy</option>
+                        <option value="Japan">Japan</option>
+                        <option value="Kuwait">Kuwait</option>
+                        <option value="Liechtenstein">Liechtenstein</option>
+                        <option value="Luxembourg">Luxembourg</option>
+                        <option value="Malaysia">Malaysia</option>
+                        <option value="Monaco">Monaco</option>
+                        <option value="Netherlands">Netherlands</option>
+                        <option value="New Zealand">New Zealand</option>
+                        <option value="Norway">Norway</option>
+                        <option value="Oman">Oman</option>
+                        <option value="Pakistan">Pakistan</option>
+                        <option value="Philippines">Philippines</option>
+                        <option value="Poland">Poland</option>
+                        <option value="Portugal">Portugal</option>
+                        <option value="Qatar">Qatar</option>
+                        <option value="Russian Federation">Russian Federation</option>
+                        <option value="Saint Helena">Saint Helena</option>
+                        <option value="Saint Kitts and Nevis">Saint Kitts and Nevis</option>
+                        <option value="Saudi Arabia">Saudi Arabia</option>
+                        <option value="Singapore">Singapore</option>
+                        <option value="Spanyol">Spanyol</option>
+                        <option value="Suriname">Suriname</option>
+                        <option value="Switzerland">Switzerland</option>
+                        <option value="Thailand">Thailand</option>
+                        <option value="Turkey">Turkey</option>
+                        <option value="Ukraine">Ukraine</option>
+                        <option value="United Arab Emirates">United Arab Emirates</option>
+                        <option value="United Kingdom">United Kingdom</option>
+                        <option value="United States">United States</option>
+                        <option value="Venezuela">Venezuela</option>
+                        <option value="Vietnam">Vietnam</option>
+                        <option value="Wallis and Futuna">Wallis and Futuna</option>
+                        <option value="Western Sahara">Western Sahara</option>
+                        <option value="Yemen">Yemen</option>
+                        <option value="Zimbabwe">Zimbabwe</option>
+                    </select>
+                    <p class="absolute text-xs text-red-500 pt-1" id="select-msg"></p>
+                </div>
+                <button type="submit" class="mt-5 w-full rounded-md font-bold text-black border px-12 py-4 bg-red-400 hover:bg-pink-500  duration-300">Register</button>
+            </div>
+            {% if message %}
+            <p class="text-center text-sm text-red-500 mt-2">{{ message }}</p>
+            {% endif %}
+        </form>
+    </div>
+    <div class="text-center text-white mt-12">
+        <p>Already have an account?</p>
+        <a class="text-gray-400 hover:text-gray-300 duration-100" href="/login">Login</a>
+    </div>
+</div>
+{% endblock content %}
+
+{% block script %}
+<script>
+    const username_field = document.querySelector("#id_username");
+    const password_field = document.querySelector("#id_password");
+    const country_field = document.querySelector("#id_country");
+
+    const validateUsername = () => {
+        return username_field.value == "";
+    };
+
+    const validatePassword = () => {
+        return password_field.value == "";
+    };
+
+    const validateCountry = () => {
+        return country_field.value === "";
+    }
+
+    const validateUsernameMsg = () => {
+        const res = validateUsername();
+        if (res) {
+            username_field.classList.remove("border-gray-500");
+            username_field.classList.add("border-red-500", "focus:outline-red-500");
+            document.querySelector("#username-msg").innerHTML =
+                "Field cannot be empty!";
+        } else {
+            username_field.classList.remove("border-red-500", "focus:outline-red-500");
+            username_field.classList.add("border-gray-500");
+            document.querySelector("#username-msg").innerHTML = "";
+        }
+        validateFields();
+    };
+
+    const validatePasswordMsg = () => {
+        const res = validatePassword();
+        if (res) {
+            password_field.classList.add("border-red-500", "focus:outline-red-500");
+            document.querySelector("#password-msg").innerHTML =
+            "Password cannot be empty!";
+        } else {
+            password_field.classList.remove("border-red-500", "focus:outline-red-500");
+            document.querySelector("#password-msg").innerHTML = "";
+        }
+        validateFields();
+    };
+
+    const validateCountryMsg = () => {
+        const res = validateCountry();
+        if (res) {
+            country_field.classList.add("border-red-500", "focus:outline-red-500");
+            document.querySelector("#select-msg").innerHTML = "Choose one!";
+        } else {
+            country_field.classList.remove("border-red-500", "focus:outline-red-500");
+            document.querySelector("#select-msg").innerHTML = "";
+        }
+        validateFields();
+    }
+
+    function validateFields() {
+        const btn = document.getElementById("submit-btn");
+        if (
+            !(
+            validateCountry() ||
+            validateUsername() ||
+            validatePassword()
+            )
+        ) {
+            btn.disabled = false;
+            btn.classList.add("text-white", "border-white", "hover:bg-white","hover:text-[#242831]")
+        } else {
+            btn.classList.remove("text-white", "border-white", "hover:bg-white","hover:text-[#242831]")
+            btn.disabled = true;
+        }
+    }
+</script>
+{% endblock script %}

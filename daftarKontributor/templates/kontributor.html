@@ -1,0 +1,50 @@
+{% block content %}
+<h2>Daftar Kontributor</h2>
+<form method="get">
+    <select name="tipe">
+        <option value="">Semua Tipe</option>
+        <option value="Sutradara" {% if request.GET.tipe == "Sutradara" %}selected{% endif %}>Sutradara</option>
+        <option value="Pemain" {% if request.GET.tipe == "Pemain" %}selected{% endif %}>Pemain</option>
+        <option value="Penulis Skenario" {% if request.GET.tipe == "Penulis Skenario" %}selected{% endif %}>Penulis Skenario</option>
+    </select>
+    <button type="submit">Cari</button>
+</form>
+<style>
+    table {
+        border-collapse: collapse;
+        width: 100%;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 8px;
+        text-align: left;
+    }
+    th {
+        background-color: #f2f2f2;
+    }
+</style>
+<table>
+    <thead>
+        <tr>
+            <th>Nama</th>
+            <th>Tipe</th>
+            <th>Jenis Kelamin</th>
+            <th>Kewarganegaraan</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for kontributor in kontributors %}
+        <tr>
+            <td>{{ kontributor.nama }}</td>
+            <td>{{ kontributor.tipe }}</td>
+            <td>{{ kontributor.jenis_kelamin|yesno:"Perempuan,Laki-laki" }}</td>
+            <td>{{ kontributor.kewarganegaraan }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">Tidak ada kontributor yang ditemukan.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}

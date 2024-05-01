@@ -9,14 +9,15 @@ def show_favorit(request):
     query_str = '''
                 SELECT judul, timestamp, username from daftar_favorit where username = 'pengguna0' ORDER BY timestamp ASC;
                 '''
-    #menjakankan query 
+    # menjalankan query 
     hasil = query(query_str)
     print(hasil)
-    #melakukan format waktu
+    # melakukan format waktu
     for data in hasil:
         data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     
-    return render(request, 'index.html', {'unduhan': hasil})
+    return render(request, 'favorit.html', {'favorit': hasil})  
+
 
 #Fungsi untuk menghapus tayangan yang telah difavoritkan oleh user
 def remove_favorit(request):
@@ -25,4 +26,4 @@ def remove_favorit(request):
         username = request.POST.get('username')
         query_str = f"DELETE FROM daftar_favorit WHERE judul = '{judul}' and username = '{username}';"
         query(query_str)
-    return redirect('show_unduhan')
+    return redirect('show_favorit')
