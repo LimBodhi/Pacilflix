@@ -1,0 +1,13 @@
+{% block content %}
+    <h1>Daftar Akun</h1>
+    <table>
+        <tr>
+            <th>Username</th>
+        </tr>
+        {% for akun in akun %}
+            <tr>
+                <td>{{ akun.username }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
