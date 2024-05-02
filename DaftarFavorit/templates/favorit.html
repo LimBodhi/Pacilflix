@@ -1,49 +1,71 @@
+{% extends 'base.html' %}
+
 {% block content %}
-    <h1>Daftar Favorit</h1>
-    <style>
-        table {
-            border-collapse: collapse;
-            width: 50%;
-        }
-        th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-        .remove-button {
-            background-color: #f44336;
-            border: none;
-            color: white;
-            padding: 6px 10px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 14px;
-            cursor: pointer;
-        }
-    </style>
-    <table>
-        <tr>
-            <th>Judul</th>
-            <th>Waktu Ditambahkan</th>
-            <th>Aksi</th> 
-        </tr>
-        {% for film in favorit %}
-            <tr>
-                <td>{{ film.judul }}</td>
-                <td>{{ film.formatted_timestamp }}</td>
-                <td>
-                    <form action="{% url 'remove_favorit' %}" method="post">
-                        {% csrf_token %}
-                        <input type="hidden" name="judul" value="{{ film.judul }}">
-                        <input type="hidden" name="username" value="{{ film.username }}">
-                        <button type="submit" class="remove-button">Hapus</button>
-                    </form>
-                </td>
-            </tr>
-        {% endfor %}
-    </table>
+<div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
+    <div class="container mx-auto py-12 px-4">
+        <h2 class="text-center text-4xl font-bold mb-8">Daftar Favorit</h2>
+
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%; /* Full width for better visibility */
+                background-color: #333845; /* Darker table background */
+            }
+            th, td {
+                border: 1px solid #777; /* Lighter border color */
+                padding: 8px;
+                text-align: left;
+                color: white; /* White text color for readability */
+            }
+            th {
+                background-color: #50555c; /* Darker header background */
+            }
+            .remove-button {
+                background-color: #f44336; /* Red background for delete button */
+                border: none;
+                color: white;
+                padding: 6px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                cursor: pointer;
+                border-radius: 4px; /* Rounded corners */
+            }
+            .remove-button:hover {
+                background-color: #d32f2f; /* Darker red on hover */
+            }
+        </style>
+
+        <table class="w-full text-left rounded-lg overflow-hidden">
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Waktu Ditambahkan</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for film in favorit %}
+                <tr class="border-t border-gray-700">
+                    <td>{{ film.judul }}</td>
+                    <td>{{ film.formatted_timestamp }}</td>
+                    <td>
+                        <form action="{% url 'remove_favorit' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="judul" value="{{ film.judul }}">
+                            <input type="hidden" name="username" value="{{ film.username }}">
+                            <button type="submit" class="remove-button">Hapus</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Tidak ada film favorit yang ditemukan.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
 {% endblock %}

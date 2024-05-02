@@ -1,49 +1,73 @@
+{% extends 'base.html' %}
+
 {% block content %}
-<h2>Halaman Beli</h2>
+<div class="h-screen bg-[#242831] text-slate-100 font-inter">
+    <div class="container mx-auto py-12 px-4">
+        <h2 class="text-center text-4xl font-bold mb-8">Halaman Beli</h2>
 
-<style>
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th, td {
-        border: 1px solid black;
-        padding: 8px;
-        text-align: left;
-    }
-    th {
-        background-color: #f2f2f2;
-    }
-</style>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                background-color: #333845; /* Slightly darker table background */
+            }
+            th, td {
+                border: 1px solid #777; /* Lighter border color */
+                padding: 8px;
+                text-align: left;
+                color: white; /* White text color for readability */
+            }
+            th {
+                background-color: #50555c; /* Darker header background */
+            }
+            select, button {
+                background-color: #333845; /* Dark background for inputs */
+                border: 1px solid #777;
+                color: white;
+                padding: 8px 12px;
+                margin-top: 12px;
+                border-radius: 8px;
+            }
+            button {
+                cursor: pointer;
+                background-color: #EC4899; /* Button color */
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #d14f4f; /* Darker on hover */
+            }
+        </style>
 
-<h3>Informasi Paket yang Ingin Dibeli:</h3>
-<table>
-    <thead>
-        <tr>
-            <th>Nama</th>
-            <th>Harga</th>
-            <th>Resolusi Layar</th>
-            <th>Dukungan Perangkat</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>{{ paket.nama }}</td>
-            <td>{{ paket.harga }}</td>
-            <td>{{ paket.resolusi_layar }}</td>
-            <td>{{ paket.dukungan_perangkat|join:", " }}</td>
-        </tr>
-    </tbody>
-</table>
+        <h3 class="text-2xl font-semibold mb-4">Informasi Paket yang Ingin Dibeli:</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Harga</th>
+                    <th>Resolusi Layar</th>
+                    <th>Dukungan Perangkat</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>{{ paket.nama }}</td>
+                    <td>{{ paket.harga }}</td>
+                    <td>{{ paket.resolusi_layar }}</td>
+                    <td>{{ paket.dukungan_perangkat|join:", " }}</td>
+                </tr>
+            </tbody>
+        </table>
 
-<h3>Pilih Metode Pembayaran:</h3>
-<form method="post" action="{% url 'proses_pembayaran' %}">
-    {% csrf_token %}
-    <select name="metode_pembayaran">
-        <option value="transfer_bank">Transfer Bank</option>
-        <option value="kartu_kredit">Kartu Kredit</option>
-        <option value="e_wallet">E-Wallet</option>
-    </select>
-    <button type="submit">Bayar</button>
-</form>
+        <h3 class="text-2xl font-semibold mb-4">Pilih Metode Pembayaran:</h3>
+        <form method="post" action="{% url 'proses_pembayaran' %}">
+            {% csrf_token %}
+            <select name="metode_pembayaran">
+                <option value="transfer_bank">Transfer Bank</option>
+                <option value="kartu_kredit">Kartu Kredit</option>
+                <option value="e_wallet">E-Wallet</option>
+            </select>
+            <button type="submit" class="w-full">Bayar</button>
+        </form>
+    </div>
+</div>
 {% endblock %}
