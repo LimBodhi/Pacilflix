@@ -35,13 +35,13 @@ def show_film(request):
 def show_series(request):
     query_str = "SELECT * FROM TAYANGAN JOIN SERIES ON series.id_tayangan = tayangan.id"
     hasil = query(query_str)
-    for data in hasil:
-        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    # for data in hasil:
+    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'series.html', {'series': hasil})
 
 def show_episode(request):
     query_str = "SELECT * FROM TAYANGAN JOIN EPISODE ON episode.id_series = tayangan.id"
     hasil = query(query_str)
-    for data in hasil:
-        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    # for data in hasil:
+    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'episode.html', {'episodes': hasil})

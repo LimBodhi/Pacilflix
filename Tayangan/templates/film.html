@@ -21,7 +21,39 @@
                 background-color: #50555c; /* Darker header background */
             }
         </style>
-        
+        {% for film in films %}
+        Judul: {{ film.judul }}
+        <form action="{% url '{{ film.url_video_film }}' %}" method="post">
+            <button type="submit" class="button">Tonton</button>
+        </form>
+        <form action="{% url '#' %}" method="post">
+            <button type="submit" class="button">Unduh</button>
+        </form>
+        <form action="{% url '#' %}" method="post">
+            <button type="submit" class="button">Favorit</button>
+        </form>
+
+
+
+        Total View: {{ 0 }}
+        Rating Rata-Rata: {{ 0 }}
+        Sinopsis: {{ film.sinopsis }}
+        Durasi Film: {{ film.durasi_film }}
+        Tanggal Rilis Film: {{ film.release_date_film }}
+        URL Film: {{ film.url_video_film }}
+        Genre: {{ . }}
+
+        Asal Negara: {{ film.asal_negara }}
+        Pemain: {{ . }}
+
+        Penulis Skenario: {{ . }}
+
+        Sutradara: {{ . }}
+
+        <form action="{% url 'show_ulasan' %}" method="post">
+            <button type="submit" class="button">Ulasan</button>
+        </form>
+        {% endfor %}
     </div>
 </div>
 {% endblock %}
