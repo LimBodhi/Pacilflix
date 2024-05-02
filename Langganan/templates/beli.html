@@ -19,6 +19,7 @@
             }
             th {
                 background-color: #50555c; /* Darker header background */
+                text-align: center;
             }
             select, button {
                 background-color: #333845; /* Dark background for inputs */
@@ -39,7 +40,7 @@
         </style>
 
         <h3 class="text-2xl font-semibold mb-4">Informasi Paket yang Ingin Dibeli:</h3>
-        <table>
+        <table class="w-full text-left rounded-lg overflow-hidden mb-8">
             <thead>
                 <tr>
                     <th>Nama</th>
@@ -58,7 +59,7 @@
             </tbody>
         </table>
 
-        <h3 class="text-2xl font-semibold mb-4">Pilih Metode Pembayaran:</h3>
+        <h3 class="text-2xl font-semibold">Pilih Metode Pembayaran:</h3>
         <form method="post" action="{% url 'proses_pembayaran' %}">
             {% csrf_token %}
             <select name="metode_pembayaran">
