@@ -24,12 +24,15 @@
         {% for film in films %}
         Judul: {{ film.judul }}
         <form action="#" method="post">
+            {% csrf_token %}
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
         </form>
         <form action="#" method="post">
+            {% csrf_token %}
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Unduh</button>
         </form>
         <form action="#" method="post">
+            {% csrf_token %}
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Favorit</button>
         </form>
 
@@ -51,7 +54,8 @@
         Sutradara: {{ . }} <br>
 
         <form action="{% url 'show_ulasan' %}" method="post">
-            <button type="submit" class="button">Ulasan</button>
+            {% csrf_token %}
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Ulasan</button>
         </form>
         {% endfor %}
     </div>

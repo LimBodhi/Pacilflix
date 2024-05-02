@@ -51,7 +51,7 @@
                     <td>
                         <form action="{% url 'show_film' %}" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="id_tayangan" value="{{ trailer.id }}">
+                            <input type="hidden" name="id_tayangan" value="{{ trailer.id_tayangan }}">
                             <button type="submit" class="button">Tayangan</button>
                         </form>
                     </td>
@@ -75,16 +75,16 @@
                 </tr>
             </thead>
             <tbody>
-                {% for trailer in tayangans %}
+                {% for film in tayangan_film %}
                 <tr class="border-t border-gray-700">
-                    <td>{{ trailer.judul }}</td>
-                    <td>{{ trailer.sinopsis_trailer }}</td>
-                    <td>{{ trailer.url_video_trailer }}</td>
-                    <td>{{ trailer.formatted_timestamp }}</td>
+                    <td>{{ film.judul }}</td>
+                    <td>{{ film.sinopsis_trailer }}</td>
+                    <td>{{ film.url_video_trailer }}</td>
+                    <td>{{ film.formatted_timestamp }}</td>
                     <td>
                         <form action="{% url 'show_film' %}" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="id_tayangan" value="{{ trailer.id }}">
+                            <input type="hidden" name="id_film" value="{{ film.id_tayangan }}">
                             <button type="submit" class="button">Film</button>
                         </form>
                     </td>
@@ -108,7 +108,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for trailer in tayangans %}
+                {% for trailer in tayangan_series %}
                 <tr class="border-t border-gray-700">
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
@@ -117,7 +117,7 @@
                     <td>
                         <form action="{% url 'show_series' %}" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="id_tayangan" value="{{ trailer.id }}">
+                            <input type="hidden" name="id_series" value="{{ trailer.id_tayangan }}">
                             <button type="submit" class="button">Series</button>
                         </form>
                     </td>
