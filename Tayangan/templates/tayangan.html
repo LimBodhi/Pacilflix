@@ -3,7 +3,7 @@
 {% block content %}
 <div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
     <div class="container mx-auto py-12 px-4">
-        <h2 class="text-center text-4xl font-bold mb-8">Trailer</h2>
+        <h2 class="text-center text-4xl font-bold mb-8">Tayangan</h2>
 
         <form method="get" class="flex justify-center mb-8">
             <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
@@ -35,16 +35,18 @@
                     <th>URL Trailer</th>
                     <th>Tanggal Rilis Trailer</th>
                     <th>Total View 7 Hari Terakhir</th>
+                    <th>Tayangan</th>
                 </tr>
             </thead>
             <tbody>
-                {% for trailer in trailers %}
+                {% for trailer in tayangans %}
                 <tr class="border-t border-gray-700">
                     <td>{{  }}</td>
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
                     <td>{{ trailer.formatted_timestamp }}</td>
+                    <td>{{  }}</td>
                     <td>{{  }}</td>
                 </tr>
                 {% empty %}
@@ -62,14 +64,16 @@
                     <th>Sinopsis Trailer</th>
                     <th>URL Trailer</th>
                     <th>Tanggal Rilis Trailer</th>
+                    <th>Tayangan</th>
                 </tr>
             </thead>
             <tbody>
-                {% for trailer in trailers %}
+                {% for trailer in tayangans %}
                 <tr class="border-t border-gray-700">
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
+                    <td>{{ trailer.formatted_timestamp }}</td>
                     <td>{{ trailer.formatted_timestamp }}</td>
                 </tr>
                 {% empty %}
@@ -87,14 +91,16 @@
                     <th>Sinopsis Trailer</th>
                     <th>URL Trailer</th>
                     <th>Tanggal Rilis Trailer</th>
+                    <th>Tayangan</th>
                 </tr>
             </thead>
             <tbody>
-                {% for trailer in trailers %}
+                {% for trailer in tayangans %}
                 <tr class="border-t border-gray-700">
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
+                    <td>{{ trailer.formatted_timestamp }}</td>
                     <td>{{ trailer.formatted_timestamp }}</td>
                 </tr>
                 {% empty %}
