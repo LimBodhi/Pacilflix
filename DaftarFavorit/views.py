@@ -11,7 +11,7 @@ def show_favorit(request):
                 '''
     # menjalankan query 
     hasil = query(query_str)
-    print(hasil)
+
     # melakukan format waktu
     for data in hasil:
         data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
