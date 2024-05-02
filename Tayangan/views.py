@@ -12,3 +12,23 @@ def show_tayangan(request):
     query_str = "SELECT * FROM DAFTAR_UNDUHAN"
     hasil = query(query_str)
     return render(request, 'index.html', {'akun': hasil})
+
+def show_search(request):
+    query_str = """ SELECT tayangan.judul, tayangan.sinopsis_trailer, tayangan.url_video_trailer, tayangan.release_date_trailer 
+                    FROM TAYANGAN
+                    WHERE tayangan.judul LIKE '%{query}%'
+                    """
+    hasil = query(query_str)
+    for data in hasil:
+        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    return render(request, 'search.html', {'tayangans': hasil})
+
+def show_film(request):
+    query_str = "SELECT * FROM TAYANGAN"
+    hasil = query(query_str)
+    return render(request, 'film.html', {'films': hasil})
+
+def show_series(request):
+    query_str = "SELECT * FROM TAYANGAN"
+    hasil = query(query_str)
+    return render(request, 'series.html', {'series': hasil})

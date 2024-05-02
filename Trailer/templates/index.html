@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
+    <div class="container mx-auto py-12 px-4">
+        <h2 class="text-center text-4xl font-bold mb-8">Trailer</h2>
+
+        <form method="get" class="flex justify-center mb-8">
+            <select name="tipe" class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+                <option value="">Semua Tipe</option>
+                <option value="Sutradara" {% if request.GET.tipe == "Sutradara" %}selected{% endif %}>Sutradara</option>
+                <option value="Pemain" {% if request.GET.tipe == "Pemain" %}selected{% endif %}>Pemain</option>
+                <option value="Penulis Skenario" {% if request.GET.tipe == "Penulis Skenario" %}selected{% endif %}>Penulis Skenario</option>
+            </select>
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
+        </form>
+
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                background-color: #333845; /* Slightly darker table background */
+            }
+            th, td {
+                border: 1px solid #777; /* Lighter border color */
+                padding: 8px;
+                text-align: left;
+                color: white; /* White text color for readability */
+            }
+            th {
+                background-color: #50555c; /* Darker header background */
+            }
+        </style>
+        <table>
+            <thead>
+                <tr>
+                    <th>Nama</th>
+                    <th>Tipe</th>
+                    <th>Jenis Kelamin</th>
+                    <th>Kewarganegaraan</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for kontributor in kontributors %}
+                <tr class="border-t border-gray-700">
+                    <td>{{ kontributor.nama }}</td>
+                    <td>{{ kontributor.tipe }}</td>
+                    <td>{{ kontributor.jenis_kelamin|yesno:"Perempuan,Laki-laki" }}</td>
+                    <td>{{ kontributor.kewarganegaraan }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Tidak ada kontributor yang ditemukan.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
