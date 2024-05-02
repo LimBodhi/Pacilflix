@@ -4,24 +4,22 @@
             <div class="py-6 mr-4">
                 <a href="/" class="inline font-bold text-2xl text-white"><span class="bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">PacilFlix</span> - D6</a>
             </div>
-            <div class="flex font-semibold items-center text-white gap-12 pl-14">
+            <div class="flex font-semibold items-center text-white gap-8 pl-14">
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/">Trailers</a>
-                {% if is_logged_in %}
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Shows</a>
-                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Contributors</a>
-                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Favorites</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Reviews</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Downloads</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Favorites</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Contributors</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Subscription</a>
-                {% endif %}
             </div>
         </div>
-        <div class="flex">
+        <div class="flex items-center">
             {% if not is_logged_in %}
-            <button type="submit" class="rounded-md font-bold text-black border px-8 py-2 bg-red-300 hover:bg-red-400 duration-300">Register</button>
-            <button type="submit" class="rounded-md font-bold text-white border px-8 py-2 bg-pink-500 hover:bg-pink-600 duration-300 ml-4">Login</button>
-            {% endif %}
-            {% if is_logged_in %}
-            <p class="font-medium text-white">{{username}}</p>
+            <div class="user-frame hover:bg-white hover:bg-opacity-10 cursor-pointer px-3 py-2 rounded-full flex items-center mr-2">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="w-6 h-6 text-white mr-2" viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                <p class="font-medium text-white">odavidson</p>
+            </div>
             <a href="/logout" class="text-white hover:text-red-500 duration-100 pl-6">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <title id="title">Logout</title>

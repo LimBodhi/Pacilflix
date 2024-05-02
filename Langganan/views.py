@@ -5,12 +5,12 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.views.decorators.csrf import csrf_exempt
 
 def langganan_list(request):
-    # Query untuk mendapatkan data paket langganan dan transaksi untuk pengguna0
+    # Query untuk mendapatkan data paket langganan dan transaksi untuk odavidson
     query_transaksi = """
     SELECT t.username, t.nama_paket, p.nama, p.harga, p.resolusi_layar, t.start_date_time, t.end_date_time, t.metode_pembayaran
     FROM PACILFLIX.TRANSACTION t
     JOIN PACILFLIX.PAKET p ON t.nama_paket = p.nama
-    WHERE t.username = 'pengguna0'
+    WHERE t.username = 'odavidson'
     """
     transaksi_data = query(query_transaksi)
     
@@ -66,7 +66,7 @@ def beli_paket(request, nama_paket):
 def proses_pembayaran(request):
     if request.method == 'POST':
         # Ambil data dari form
-        username = 'pengguna0'
+        username = 'odavidson'
         # username = request.POST.get('username')  # asumsikan form memiliki field 'username'
         nama_paket = request.POST.get('nama_paket')  # asumsikan form memiliki field 'nama_paket'
         metode_pembayaran = request.POST.get('metode_pembayaran')  # asumsikan form memiliki field 'metode_pembayaran'
