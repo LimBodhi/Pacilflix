@@ -5,7 +5,7 @@
     <div class="container mx-auto py-12 px-4">
         <h2 class="text-center text-4xl font-bold mb-8">Tayangan</h2>
 
-        <form action="{% url 'show_search_tayangan' %}" method="post">
+        <form action="{% url 'show_search_tayangan' %}" method="post" class="flex justify-center mb-8">
             {% csrf_token %}
             <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
@@ -27,6 +27,14 @@
                 background-color: #50555c; /* Darker header background */
             }
         </style>
+        <form method="get" class="button">
+
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Global</button>
+        </form>
+        <form method="get" class="button">
+
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Negara Pengguna</button>
+        </form>
         <table>
             <thead>
                 <tr>
@@ -52,7 +60,7 @@
                         <form action="{% url 'show_film' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="id_tayangan" value="{{ trailer.id_tayangan }}">
-                            <button type="submit" class="button">Tayangan</button>
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tayangan</button>
                         </form>
                     </td>
                 </tr>
@@ -85,7 +93,7 @@
                         <form action="{% url 'show_film' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="id_film" value="{{ film.id_tayangan }}">
-                            <button type="submit" class="button">Film</button>
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Film</button>
                         </form>
                     </td>
                 </tr>
@@ -118,7 +126,7 @@
                         <form action="{% url 'show_series' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="id_series" value="{{ trailer.id_tayangan }}">
-                            <button type="submit" class="button">Series</button>
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Series</button>
                         </form>
                     </td>
                 </tr>

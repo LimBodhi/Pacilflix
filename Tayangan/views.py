@@ -15,8 +15,6 @@ def show_tayangan(request):
     hasil_film = query(query_str_film)
     query_str_series = "SELECT * FROM TAYANGAN JOIN SERIES ON series.id_tayangan = tayangan.id;"
     hasil_series = query(query_str_series)
-    # for data in hasil:
-    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'tayangan.html', {'tayangans': hasil, 'tayangan_film': hasil_film, 'tayangan_series': hasil_series})
 
 def show_search_tayangan(request):
@@ -31,23 +29,17 @@ def show_search_tayangan(request):
 
 def show_film(request):
     id_film = request.POST.get('id_film')
-    query_str = f"SELECT * FROM TAYANGAN JOIN FILM ON film.id_tayangan = tayangan.id WHERE id_tayangan = '{id_film}';"
+    query_str = f"SELECT tayangan.judul,  FROM TAYANGAN JOIN FILM ON film.id_tayangan = tayangan.id WHERE id_tayangan = '{id_film}';"
     hasil = query(query_str)
-    # for data in hasil:
-    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'film.html', {'films': hasil})
 
 def show_series(request):
     id_series = request.POST.get('id_series')
     query_str = f"SELECT * FROM TAYANGAN JOIN SERIES ON series.id_tayangan = tayangan.id WHERE id_tayangan = '{id_series}';"
     hasil = query(query_str)
-    # for data in hasil:
-    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'series.html', {'series': hasil})
 
 def show_episode(request):
     query_str = "SELECT * FROM TAYANGAN JOIN SERIES ON series.id_tayangan = tayangan.id JOIN EPISODE ON episode.id_series = series.id_tayangan;"
     hasil = query(query_str)
-    # for data in hasil:
-    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'episode.html', {'episode': hasil})
