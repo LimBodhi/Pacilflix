@@ -23,32 +23,32 @@
         </style>
         {% for film in films %}
         Judul: {{ film.judul }}
-        <form action="{% url '{{ film.url_video_film }}' %}" method="post">
-            <button type="submit" class="button">Tonton</button>
+        <form action="#" method="post">
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
         </form>
-        <form action="{% url '#' %}" method="post">
-            <button type="submit" class="button">Unduh</button>
+        <form action="#" method="post">
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Unduh</button>
         </form>
-        <form action="{% url '#' %}" method="post">
-            <button type="submit" class="button">Favorit</button>
+        <form action="#" method="post">
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Favorit</button>
         </form>
 
 
 
-        Total View: {{ 0 }}
-        Rating Rata-Rata: {{ 0 }}
-        Sinopsis: {{ film.sinopsis }}
-        Durasi Film: {{ film.durasi_film }}
-        Tanggal Rilis Film: {{ film.release_date_film }}
-        URL Film: {{ film.url_video_film }}
-        Genre: {{ . }}
+        Total View: {{ 0 }} <br>
+        Rating Rata-Rata: {{ 0 }} <br>
+        Sinopsis: {{ film.sinopsis }}<br>
+        Durasi Film: {{ film.durasi_film }} <br>
+        Tanggal Rilis Film: {{ film.release_date_film }} <br>
+        URL Film: {{ film.url_video_film }} <br>
+        Genre: {{ . }} <br>
 
-        Asal Negara: {{ film.asal_negara }}
-        Pemain: {{ . }}
+        Asal Negara: {{ film.asal_negara }} <br>
+        Pemain: {{ . }} <br>
 
-        Penulis Skenario: {{ . }}
+        Penulis Skenario: {{ . }} <br>
 
-        Sutradara: {{ . }}
+        Sutradara: {{ . }} <br>
 
         <form action="{% url 'show_ulasan' %}" method="post">
             <button type="submit" class="button">Ulasan</button>
