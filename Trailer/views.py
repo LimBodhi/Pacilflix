@@ -11,8 +11,8 @@ from django.views.decorators.csrf import csrf_exempt
 def show_trailer(request):
     query_str = "SELECT * FROM TAYANGAN"
     hasil = query(query_str)
-    for data in hasil:
-        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    # for data in hasil:
+    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'trailer.html', {'trailers': hasil})
 
 def show_search(request):

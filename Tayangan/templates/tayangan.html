@@ -5,7 +5,7 @@
     <div class="container mx-auto py-12 px-4">
         <h2 class="text-center text-4xl font-bold mb-8">Tayangan</h2>
 
-        <form action="{% url 'show_search' %}" method="post">
+        <form action="{% url 'show_search_tayangan' %}" method="post">
             {% csrf_token %}
             <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
@@ -42,13 +42,19 @@
             <tbody>
                 {% for trailer in tayangans %}
                 <tr class="border-t border-gray-700">
-                    <td>{{  }}</td>
+                    <td>{{ 1 }}</td>
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
                     <td>{{ trailer.formatted_timestamp }}</td>
-                    <td>{{  }}</td>
-                    <td>{{  }}</td>
+                    <td>{{ 1 }}</td>
+                    <td>
+                        <form action="{% url 'show_film' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id_tayangan" value="{{ trailer.id }}">
+                            <button type="submit" class="button">Tayangan</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>

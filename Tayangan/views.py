@@ -11,11 +11,11 @@ from django.views.decorators.csrf import csrf_exempt
 def show_tayangan(request):
     query_str = "SELECT * FROM TAYANGAN"
     hasil = query(query_str)
-    for data in hasil:
-        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    # for data in hasil:
+    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'tayangan.html', {'tayangans': hasil})
 
-def show_search(request):
+def show_search_tayangan(request):
     query_str = """ SELECT tayangan.judul, tayangan.sinopsis_trailer, tayangan.url_video_trailer, tayangan.release_date_trailer 
                     FROM TAYANGAN
                     WHERE tayangan.judul LIKE '%{query}%'
@@ -23,13 +23,13 @@ def show_search(request):
     hasil = query(query_str)
     for data in hasil:
         data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
-    return render(request, 'search.html', {'tayangans': hasil})
+    return render(request, 'search_tayangan.html', {'tayangans': hasil})
 
 def show_film(request):
     query_str = "SELECT * FROM TAYANGAN JOIN FILM ON film.id_tayangan = tayangan.id"
     hasil = query(query_str)
-    for data in hasil:
-        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    # for data in hasil:
+    #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     return render(request, 'film.html', {'films': hasil})
 
 def show_series(request):
