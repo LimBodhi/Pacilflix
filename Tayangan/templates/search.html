@@ -33,6 +33,7 @@
                     <th>Sinopsis Trailer</th>
                     <th>URL Trailer</th>
                     <th>Tanggal Rilis Trailer</th>
+                    <th>Tayangan</th>
                 </tr>
             </thead>
             <tbody>
@@ -42,10 +43,17 @@
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
                     <td>{{ trailer.formatted_timestamp }}</td>
+                    <td>
+                        <form action="{% url 'show_film' %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="id_tayangan" value="{{ trailer.id }}">
+                            <button type="submit" class="button">Tayangan</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
+                    <td colspan="4">Tidak ada tayangan yang ditemukan.</td>
                 </tr>
                 {% endfor %}
             </tbody>
