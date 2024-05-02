@@ -7,7 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 #Fungsi untuk memanggil semua tayangan favorit user, dalam hal ini contohnya pengguna0
 def show_favorit(request):
     query_str = '''
-                SELECT judul, timestamp, username from daftar_favorit where username = 'pengguna0' ORDER BY timestamp ASC;
+                select df.judul, df.timestamp from daftar_favorit df where df.username = 'odavidson' order by df.timestamp ASC;
                 '''
     # menjalankan query 
     hasil = query(query_str)
