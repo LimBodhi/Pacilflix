@@ -5,6 +5,24 @@
     <div class="container mx-auto py-12 px-4">
         <h2 class="text-center text-4xl font-bold mb-8">Halaman Kelola Langganan</h2>
 
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                background-color: #333845; /* Slightly darker table background */
+            }
+            th, td {
+                border: 1px solid #777; /* Lighter border color */
+                padding: 8px;
+                text-align: left;
+                color: white; /* White text color for readability */
+            }
+            th {
+                background-color: #50555c; /* Darker header background */
+                text-align: center;
+            }
+        </style>
+
         <h3 class="text-2xl font-semibold mb-4">Paket Langganan Aktif Anda:</h3>
         <div class="overflow-x-auto mb-8">
             <table class="w-full text-left rounded-lg overflow-hidden">
@@ -59,8 +77,8 @@
             </table>
         </div>
 
-        <h3 class="text-2xl font-semibold">Riwayat Transaksi:</h3>
-        <div class="overflow-x-auto">
+        <h3 class="text-2xl font-semibold mb-4">Riwayat Transaksi:</h3>
+        <div class="overflow-x-auto mb-8">
             <table class="w-full text-left rounded-lg overflow-hidden">
                 <thead class="bg-[#333845] text-white">
                     <tr>
