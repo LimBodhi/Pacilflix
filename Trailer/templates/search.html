@@ -3,7 +3,7 @@
 {% block content %}
 <div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
     <div class="container mx-auto py-12 px-4">
-        <h2 class="text-center text-4xl font-bold mb-8">Pencarian</h2>
+        <h2 class="text-center text-4xl font-bold mb-8">Hasil Pencarian</h2>
 
         <form method="get" class="flex justify-center mb-8">
             <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
@@ -24,30 +24,26 @@
             }
             th {
                 background-color: #50555c; /* Darker header background */
+                text-align: center;
             }
         </style>
-        <table>
-            <thead>
+        
+        <table class="w-full text-left rounded-lg overflow-hidden">
+            <thead class="bg-[#333845] text-white">
                 <tr>
-                    <th>Judul</th>
-                    <th>Sinopsis Trailer</th>
-                    <th>URL Trailer</th>
-                    <th>Tanggal Rilis Trailer</th>
+                    <th class="py-3 px-4">Judul</th>
+                    <th class="py-3 px-4">Sinopsis Trailer</th>
+                    <th class="py-3 px-4">URL Trailer</th>
+                    <th class="py-3 px-4">Tanggal Rilis Trailer</th>
                 </tr>
             </thead>
-            <tbody>
-                {% for trailer in trailers %}
+            <tbody class="bg-[#333845]">
                 <tr class="border-t border-gray-700">
-                    <td>{{ trailer.judul }}</td>
-                    <td>{{ trailer.sinopsis_trailer }}</td>
-                    <td>{{ trailer.url_video_trailer }}</td>
-                    <td>{{ trailer.formatted_timestamp }}</td>
+                    <td>Siksa Neraka Jahanam</td>
+                    <td>Kisah tersiksa seorang remaja tidak tau diri di dalam neraka</td>
+                    <td>https://www.youtube.com/watch?v=UAuner0eWTE/td>
+                    <td>20234-03-02</td>
                 </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
-                </tr>
-                {% endfor %}
             </tbody>
         </table>
     </div>
