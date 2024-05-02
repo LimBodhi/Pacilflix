@@ -11,7 +11,7 @@ from django.views.decorators.csrf import csrf_exempt
 def show_trailer(request):
     query_str = "SELECT * FROM TAYANGAN"
     hasil = query(query_str)
-    return render(request, 'index.html', {'trailers': hasil})
+    return render(request, 'trailer.html', {'trailers': hasil})
 
 def show_search(request):
     query_str = """ SELECT tayangan.judul, tayangan.sinopsis_trailer, tayangan.url_video_trailer, tayangan.release_date_trailer 
