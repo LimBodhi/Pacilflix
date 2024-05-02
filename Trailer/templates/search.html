@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
+    <div class="container mx-auto py-12 px-4">
+        <h2 class="text-center text-4xl font-bold mb-8">Pencarian</h2>
+
+        <form method="get" class="flex justify-center mb-8">
+            <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
+        </form>
+
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                background-color: #333845; /* Slightly darker table background */
+            }
+            th, td {
+                border: 1px solid #777; /* Lighter border color */
+                padding: 8px;
+                text-align: left;
+                color: white; /* White text color for readability */
+            }
+            th {
+                background-color: #50555c; /* Darker header background */
+            }
+        </style>
+        <table>
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Sinopsis Trailer</th>
+                    <th>URL Trailer</th>
+                    <th>Tanggal Rilis Trailer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trailer in trailers %}
+                <tr class="border-t border-gray-700">
+                    <td>{{ trailer.judul }}</td>
+                    <td>{{ trailer.sinopsis_trailer }}</td>
+                    <td>{{ trailer.url_video_trailer }}</td>
+                    <td>{{ trailer.formatted_timestamp }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

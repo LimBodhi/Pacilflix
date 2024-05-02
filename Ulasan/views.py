@@ -9,6 +9,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 
 def show_ulasan(request):
-    query_str = "SELECT * FROM DAFTAR_UNDUHAN"
+    query_str = ''' SELECT ulasan.username, ulasan.deskripsi, ulasan.rating, ulasan.timestamp 
+                    FROM ULASAN 
+                    JOIN TAYANGAN ON tayangan.id = ulasan.id_tayangan
+                    ORDER BY ulasan.timestamp DESC;
+                '''
     hasil = query(query_str)
-    return render(request, 'index.html', {'akun': hasil})
+    for data in hasil:
+        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+    return render(request, 'ulasan.html', {'ulasans': hasil})
+

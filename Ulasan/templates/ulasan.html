@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
+    <div class="container mx-auto py-12 px-4">
+        <h2 class="text-center text-4xl font-bold mb-8">Daftar Ulasan</h2>
+        <form method="get" class="flex justify-center mb-8">
+            <input type="text" name="search" value="{{ query }}" placeholder="Tulis Ulasan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+            <select name="rating" class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+            </select>
+            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Submit</button>
+        </form>
+        <style>
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                background-color: #333845; /* Darker table background */
+            }
+            th, td {
+                border: 1px solid #777; /* Lighter border color */
+                padding: 8px;
+                text-align: left;
+                color: white; /* White text color for readability */
+            }
+            th {
+                background-color: #50555c; /* Darker header background */
+            }
+            .remove-button {
+                background-color: #f44336; /* Red background for delete button */
+                border: none;
+                color: white;
+                padding: 6px 10px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                cursor: pointer;
+                border-radius: 4px; /* Rounded corners */
+            }
+            .remove-button:hover {
+                background-color: #d32f2f; /* Darker red on hover */
+            }
+        </style>
+
+        <table class="w-full text-left rounded-lg overflow-hidden">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Deskripsi</th>
+                    <th>Rating</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ulasan in ulasans %}
+                <tr class="border-t border-gray-700">
+                    <td>{{ ulasan.username }}</td>
+                    <td>{{ ulasan.deskripsi }}</td>
+                    <td>{{ ulasan.rating }}</td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="3">Tidak ada ulasan yang ditemukan.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
