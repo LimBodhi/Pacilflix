@@ -2,8 +2,7 @@ from collections import namedtuple
 import psycopg2
 from psycopg2 import Error
 from psycopg2.extras import RealDictCursor
-
-
+from django.db import connection
 
 try:
     connection = psycopg2.connect(user="postgres.metqwdhmcccoqtmnxzzq",
@@ -45,3 +44,12 @@ def query(query_str: str):
             hasil = e
 
     return hasil
+
+def connectdb(func):
+    def wrapper(request):
+        res = ""
+        with connection.cursor() as cursor:
+            # cursor.execute("SET search_path to PACILFLIX;")
+            res = func(cursor, request)
+        return res
+    return wrapper
