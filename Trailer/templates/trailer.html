@@ -3,108 +3,100 @@
 {% block content %}
 <div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
     <div class="container mx-auto py-12 px-4">
-        <h2 class="text-center text-4xl font-bold mb-8">Trailer</h2>
+        <h2 class="text-center text-4xl font-bold mb-8">Daftar Tayangan</h2>
 
-        <form action="{% url 'show_search' %}" method="post">
-            {% csrf_token %}
-            <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+        <div class="flex justify-center mb-8">
+            <input type="text" placeholder="Cari Tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
-        </form>
+        </div>
 
+        <h3 class="text-2xl font-semibold mb-4">10 Tayangan Terbaik Minggu Ini:</h3>
+
+        <div class="flex justify-center mb-4">
+            <button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded mr-4">Top 10 Global</button>
+            <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Top 10 Negara</button>
+        </div>
+        
         <style>
             table {
                 border-collapse: collapse;
                 width: 100%;
-                background-color: #333845; /* Slightly darker table background */
+                background-color: #333845;
             }
             th, td {
-                border: 1px solid #777; /* Lighter border color */
+                border: 1px solid #777;
                 padding: 8px;
                 text-align: left;
-                color: white; /* White text color for readability */
+                color: white;
             }
             th {
-                background-color: #50555c; /* Darker header background */
+                background-color: #50555c;
+                text-align: center;
             }
         </style>
-        <table>
-            <thead>
-                <tr>
-                    <th>Peringkat</th>
-                    <th>Judul</th>
-                    <th>Sinopsis Trailer</th>
-                    <th>URL Trailer</th>
-                    <th>Tanggal Rilis Trailer</th>
-                    <th>Total View 7 Hari Terakhir</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for trailer in trailers %}
-                <tr class="border-t border-gray-700">
-                    <td>{{ 1 }}</td>
-                    <td>{{ trailer.judul }}</td>
-                    <td>{{ trailer.sinopsis_trailer }}</td>
-                    <td>{{ trailer.url_video_trailer }}</td>
-                    <td>{{ trailer.formatted_timestamp }}</td>
-                    <td>{{ 1 }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        Film
-        <table>
-            <thead>
-                <tr>
-                    <th>Judul</th>
-                    <th>Sinopsis Trailer</th>
-                    <th>URL Trailer</th>
-                    <th>Tanggal Rilis Trailer</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for trailer in trailers %}
-                <tr class="border-t border-gray-700">
-                    <td>{{ trailer.judul }}</td>
-                    <td>{{ trailer.sinopsis_trailer }}</td>
-                    <td>{{ trailer.url_video_trailer }}</td>
-                    <td>{{ trailer.formatted_timestamp }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        Series
-        <table>
-            <thead>
-                <tr>
-                    <th>Judul</th>
-                    <th>Sinopsis Trailer</th>
-                    <th>URL Trailer</th>
-                    <th>Tanggal Rilis Trailer</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for trailer in trailers %}
-                <tr class="border-t border-gray-700">
-                    <td>{{ trailer.judul }}</td>
-                    <td>{{ trailer.sinopsis_trailer }}</td>
-                    <td>{{ trailer.url_video_trailer }}</td>
-                    <td>{{ trailer.formatted_timestamp }}</td>
-                </tr>
-                {% empty %}
-                <tr>
-                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
+
+        <div class="overflow-x-auto mb-8">
+            <table class="w-full text-left rounded-lg overflow-hidden">
+                <thead class="bg-[#333845] text-white">
+                    <tr>
+                        <th class="py-3 px-4">Peringkat</th>
+                        <th class="py-3 px-4">Judul</th>
+                        <th class="py-3 px-4">Sinopsis Trailer</th>
+                        <th class="py-3 px-4">URL Trailer</th>
+                        <th class="py-3 px-4">Tanggal Rilis Trailer</th>
+                        <th class="py-3 px-4">Total View 7 Hari Terakhir</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-[#333845]">
+                    <tr><td>1</td><td>Trailer Aksi</td><td>Sinopsis trailer aksi</td><td><a href="https://www.youtube.com/watch?v=abcdefghijk">https://www.youtube.com/watch?v=abcdefghijk</a></td><td>2023-05-01</td><td>1,000,000</td></tr>
+                    <tr><td>2</td><td>Trailer Komedi</td><td>Sinopsis trailer komedi</td><td><a href="https://www.youtube.com/watch?v=lmnopqrstuv">https://www.youtube.com/watch?v=lmnopqrstuv</a></td><td>2023-05-02</td><td>900,000</td></tr>
+                    <tr><td>3</td><td>Trailer Drama</td><td>Sinopsis trailer drama</td><td><a href="https://www.youtube.com/watch?v=wxyzabcdefg">https://www.youtube.com/watch?v=wxyzabcdefg</a></td><td>2023-05-03</td><td>800,000</td></tr>
+                    <tr><td>4</td><td>Trailer Horor</td><td>Sinopsis trailer horor</td><td><a href="https://www.youtube.com/watch?v=hijklmnopqr">https://www.youtube.com/watch?v=hijklmnopqr</a></td><td>2023-05-04</td><td>700,000</td></tr>
+                    <tr><td>5</td><td>Trailer Animasi</td><td>Sinopsis trailer animasi</td><td><a href="https://www.youtube.com/watch?v=stuvwxyzabc">https://www.youtube.com/watch?v=stuvwxyzabc</a></td><td>2023-05-05</td><td>600,000</td></tr>
+                    <tr><td>6</td><td>Trailer Sci-Fi</td><td>Sinopsis trailer sci-fi</td><td><a href="https://www.youtube.com/watch?v=defghijklmn">https://www.youtube.com/watch?v=defghijklmn</a></td><td>2023-05-06</td><td>500,000</td></tr>
+                    <tr><td>7</td><td>Trailer Petualangan</td><td>Sinopsis trailer petualangan</td><td><a href="https://www.youtube.com/watch?v=opqrstuvwxy">https://www.youtube.com/watch?v=opqrstuvwxy</a></td><td>2023-05-07</td><td>400,000</td></tr>
+                    <tr><td>8</td><td>Trailer Biografi</td><td>Sinopsis trailer biografi</td><td><a href="https://www.youtube.com/watch?v=zabcdefghij">https://www.youtube.com/watch?v=zabcdefghij</a></td><td>2023-05-08</td><td>300,000</td></tr>
+                    <tr><td>9</td><td>Trailer Dokumenter</td><td>Sinopsis trailer dokumenter</td><td><a href="https://www.youtube.com/watch?v=klmnopqrstu">https://www.youtube.com/watch?v=klmnopqrstu</a></td><td>2023-05-09</td><td>200,000</td></tr>
+                    <tr><td>10</td><td>Trailer Musikal</td><td>Sinopsis trailer musikal</td><td><a href="https://www.youtube.com/watch?v=vwxyzabcdef">https://www.youtube.com/watch?v=vwxyzabcdef</a></td><td>2023-05-10</td><td>100,000</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-2xl font-semibold mb-4">Film:</h3>
+        <div class="overflow-x-auto mb-8">
+            <table class="w-full text-left rounded-lg overflow-hidden">
+                <thead class="bg-[#333845] text-white">
+                    <tr>
+                        <th class="py-3 px-4">Judul</th>
+                        <th class="py-3 px-4">Sinopsis Trailer</th>
+                        <th class="py-3 px-4">URL Trailer</th>
+                        <th class="py-3 px-4">Tanggal Rilis Trailer</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-[#333845]">
+                    <tr><td>Film Contoh 1</td><td>Sinopsis trailer film contoh 1</td><td><a href="https://www.youtube.com/watch?v=ghijklmnopq">https://www.youtube.com/watch?v=ghijklmnopq</a></td><td>2023-05-15</td></tr>
+                    <tr><td>Film Contoh 2</td><td>Sinopsis trailer film contoh 2</td><td><a href="https://www.youtube.com/watch?v=rstuvwxyzab">https://www.youtube.com/watch?v=rstuvwxyzab</a></td><td>2023-05-16</td></tr>
+                </tbody>
+            </table>
+        </div>
+
+        <h3 class="text-2xl font-semibold mb-4">Series:</h3>
+        <div class="overflow-x-auto">
+            <table class="w-full text-left rounded-lg overflow-hidden">
+                <thead class="bg-[#333845] text-white">
+                    <tr>
+                        <th class="py-3 px-4">Judul</th>
+                        <th class="py-3 px-4">Sinopsis Trailer</th>
+                        <th class="py-3 px-4">URL Trailer</th>
+                        <th class="py-3 px-4">Tanggal Rilis Trailer</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-[#333845]">
+                    <tr><td>Series Contoh 1</td><td>Sinopsis trailer series contoh 1</td><td><a href="https://www.youtube.com/watch?v=cdefghijklm">https://www.youtube.com/watch?v=cdefghijklm</a></td><td>2023-05-20</td></tr>
+                    <tr><td>Series Contoh 2</td><td>Sinopsis trailer series contoh 2</td><td><a href="https://www.youtube.com/watch?v=nopqrstuvwx">https://www.youtube.com/watch?v=nopqrstuvwx</a></td><td>2023-05-21</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 {% endblock %}

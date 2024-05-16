@@ -4,18 +4,20 @@
             <div class="py-6 mr-4">
                 <a href="/" class="inline font-bold text-2xl text-white"><span class="bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">PacilFlix</span> - D6</a>
             </div>
+
             <div class="flex font-semibold items-center text-white gap-12 pl-14">
                 {% if not request.session.is_logged_in %}
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/">Trailers</a>
                 {% else %}
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Shows</a>
-                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Contributors</a>
-                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Favorites</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Reviews</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Downloads</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Favorites</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Contributors</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Subscription</a>
-                {% endif %}
             </div>
         </div>
+
         {% if request.session.is_logged_in %}
         <div class="flex">
             <p class="font-medium text-white">{{request.session.username}}</p>
