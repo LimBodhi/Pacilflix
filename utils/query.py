@@ -2,11 +2,10 @@ from collections import namedtuple
 import psycopg2
 from psycopg2 import Error
 from psycopg2.extras import RealDictCursor
-from django.db import connection
 
 try:
     connection = psycopg2.connect(user="postgres.metqwdhmcccoqtmnxzzq",
-                        password="45ZwywMMCma7E11s",
+                        password="5775eQ5ksZ9P0hF4",
                         host="aws-0-us-west-1.pooler.supabase.com",
                         port="5432",
                         database="postgres")

@@ -1,18 +1,16 @@
 import datetime
-from utils.query import connectdb
+from utils.query import query
 from django.urls import reverse
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.db.backends.utils import CursorWrapper
 from django.http import HttpResponseRedirect
 
-@connectdb
-def login(cursor: CursorWrapper, request):
+def login(request):
     if request.method == 'POST':
         username = request.POST.get('username')
         password = request.POST.get('password')
-        cursor.execute(f"SELECT username, password FROM PENGGUNA WHERE username = '{username}' AND password = '{password}'")
-        user = cursor.fetchone()
+        query_str = f"SELECT username, password FROM PENGGUNA WHERE username = '{username}' AND password = '{password}'"
+        user = query(query_str)
 
         if user:
             request.session['username'] = username

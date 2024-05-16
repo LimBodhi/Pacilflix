@@ -11,16 +11,17 @@
                 {% else %}
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Shows</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Reviews</a>
-                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Downloads</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/unduhan/">Downloads</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Favorites</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Contributors</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Subscription</a>
+                {% endif %}
             </div>
         </div>
 
         {% if request.session.is_logged_in %}
         <div class="flex">
-            <p class="font-medium text-white">{{request.session.username}}</p>
+            <p class="font-medium text-white">{{ request.session.username }}</p>
             <a href="/logout" class="text-white hover:text-red-500 duration-100 pl-6">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                     <title id="title">Logout</title>
