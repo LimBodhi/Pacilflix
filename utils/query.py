@@ -3,11 +3,9 @@ import psycopg2
 from psycopg2 import Error
 from psycopg2.extras import RealDictCursor
 
-
-
 try:
     connection = psycopg2.connect(user="postgres.metqwdhmcccoqtmnxzzq",
-                        password="kZ5Uq7u9hcEvtWgH",
+                        password="5775eQ5ksZ9P0hF4",
                         host="aws-0-us-west-1.pooler.supabase.com",
                         port="5432",
                         database="postgres")
