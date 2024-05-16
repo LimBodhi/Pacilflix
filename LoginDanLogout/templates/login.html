@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="h-screen bg-[#242831] font-inter_tight">
+<div class="mx-auto h-[calc(100vh-80px)] bg-[#242831] font-inter_tight">
     <div class="mb-12 text-slate-100 text-center">
         <h1 class="pt-16 pb-4 font-bold text-5xl drop-shadow-md">Login to <span class="bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">PacilFlix</span></h1>
     </div>
@@ -17,16 +17,20 @@
                     <p class="text-sm font-bold mb-2">Password</p>
                     <input class="w-full rounded-lg border border-gray-500 px-4 py-3 bg-[#333845]" type="password" name="password" id="password" placeholder="Password" required>
                 </div>
-                <button type="submit" class="mt-5 w-full rounded-md font-bold text-black border px-12 py-4 bg-red-400 hover:bg-pink-500 duration-300">Login</button>
+                <button type="submit" class="mt-5 w-full rounded-md font-bold text-black border px-12 py-4 bg-pink-500 hover:bg-pink-600 duration-300">Login</button>
             </div>
-            {% if message %}
-            <p class="text-center text-sm text-red-500 mt-2">{{ message }}</p>
+            {% if messages %}
+                {% for message in messages %}
+                    {% if forloop.first %}
+                        <p class="text-center text-sm text-red-500 mt-2">{{ message }}</p>
+                    {% endif %}
+                {% endfor %}
             {% endif %}
         </form>
     </div>
     <div class="text-center text-white mt-12">
         <p>Don't have an account yet?</p>
-        <a class="text-gray-400 hover:text-gray-300 duration-100" href="/register">Register here</a>
+        <a class="text-gray-400 hover:text-gray-300 duration-100" href="{% url 'Pengguna:register' %}">Create one.</a>
     </div>
 </div>
 {% endblock content %}
