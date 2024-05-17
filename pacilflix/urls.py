@@ -25,7 +25,7 @@ urlpatterns = [
     path('unduhan/', include('DaftarUnduhan.urls')),
     path('', include('LoginDanLogout.urls')),
     path('register/', include('Pengguna.urls')),
-    path('tayangan/', include(('Tayangan.urls', 'Tayangan'), namespace='Tayangan')),
+    path('tayangan/', include('Tayangan.urls')),
     path('trailer/', include('Trailer.urls')),
     path('ulasan/', include('Ulasan.urls')),
 ]

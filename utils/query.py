@@ -47,9 +47,7 @@ def query(query_str: str):
 
 def connectdb(func):
     def wrapper(request):
-        res = ""
         with connection.cursor() as cursor:
-            # cursor.execute("SET search_path to PACILFLIX;")
-            res = func(cursor, request)
-        return res
+            cursor.execute("SET search_path to PACILFLIX;")
+            return func(cursor, request)
     return wrapper
