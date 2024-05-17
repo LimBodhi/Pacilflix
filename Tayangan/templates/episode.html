@@ -90,9 +90,9 @@
     <div class="section">
         <p>Episode:</p>
         <ul id="episode">
-            <li>Nama episode 1</li>
-            <li>Nama episode 2</li>
-            <!-- Tambahkan episode sesuai kebutuhan -->
+            {% for episode in film.episodes %}
+                <li>{{ episode }}</li>
+            {% endfor %}
         </ul>
     </div>
 

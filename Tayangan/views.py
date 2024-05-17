@@ -107,6 +107,6 @@ def show_series(request):
 def show_episode(request):
     if request.method == 'POST':
         sub_judul = request.POST.get('sub_judul')
-    query_str = f" SELECT t.judul, e1.sub_judul, e.url_video, e1.sinopsis, e1.durasi, e1.url_video, e1.release_date FROM TAYANGAN t JOIN SERIES s ON s.id_tayangan = t.id JOIN EPISODE e ON e.id_series = s.id_tayangan JOIN EPISODE e1 ON e1.sub_judul = '{sub_judul}';"
+    query_str = f" SELECT t.judul, e1.sub_judul, ARRAY_AGG(e.url_video), e1.sinopsis, e1.durasi, e1.url_video, e1.release_date FROM TAYANGAN t JOIN SERIES s ON s.id_tayangan = t.id JOIN EPISODE e ON e.id_series = s.id_tayangan JOIN EPISODE e1 ON e1.sub_judul = '{sub_judul}';"
     hasil = query(query_str)
     return render(request, 'episode.html', {'episode': hasil})
