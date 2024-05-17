@@ -49,12 +49,12 @@
                 <tr class="border-t border-gray-700">
                     <td>{{ details }}</td>
                     <td>
-                        <form action="{% url 'lalala' %}" method="post">
+                        <form action="{% url 'delete_detail' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="username" value="{{ user }}">
                             <input type="hidden" name="timestamp" value="{{ timestamp }}">
                             <input type="hidden" name="id_tayangan" value="{{ id_tayangan }}">
-                            <input type="submit" class="remove-button">
+                            <button type="submit" class="remove-button">Hapus</button>
                         </form>
                     </td>
                 </tr>

@@ -32,7 +32,7 @@ def remove_favorit(request):
 
 def show_favorit_detail(request, judul):
     if request.method == 'POST':
-        return redirect('lalala')
+        return redirect('delete_detail')
     username = request.session['username']
     timestamp_query_str = f"""
                 SELECT timestamp 
@@ -74,13 +74,10 @@ def show_favorit_detail(request, judul):
     return render(request, 'favorit_detail.html', {'details': details, 'timestamp': timestamp, 'id_tayangan': id_tayangan, 'user':request.session['username'], 'judul':judul})
 
 def delete_detail_favorit(request):
-    print("in delete detail favorit")
     timestamp = request.POST.get('timestamp')
     id_tayangan = request.POST.get('id_tayangan')
     username = request.POST.get('username')
-    print('zczc'+timestamp, username, id_tayangan)
 
     query_str = f"DELETE FROM TAYANGAN_MEMILIKI_DAFTAR_FAVORIT WHERE id_tayangan='{id_tayangan}' AND timestamp='{timestamp}' AND username = '{username}'"
     query(query_str, return_result=False)
-    print('query:' ,query_str)
-    return render("<h1>HAHA</h1>")
+    return render(show_favorit_detail)
