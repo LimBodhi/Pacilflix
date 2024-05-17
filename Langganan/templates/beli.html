@@ -62,10 +62,11 @@
         <h3 class="text-2xl font-semibold">Pilih Metode Pembayaran:</h3>
         <form method="post" action="{% url 'proses_pembayaran' %}">
             {% csrf_token %}
+            <input type="hidden" name="nama_paket" value="{{ paket.nama }}">
             <select name="metode_pembayaran">
-                <option value="transfer_bank">Transfer Bank</option>
-                <option value="kartu_kredit">Kartu Kredit</option>
-                <option value="e_wallet">E-Wallet</option>
+                <option value="Transfer Bank">Transfer Bank</option>
+                <option value="Kartu Kredit">Kartu Kredit</option>
+                <option value="E-Wallet">E-Wallet</option>
             </select>
             <button type="submit" class="w-full">Bayar</button>
         </form>

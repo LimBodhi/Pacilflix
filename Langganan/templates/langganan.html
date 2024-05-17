@@ -37,16 +37,27 @@
                     </tr>
                 </thead>
                 <tbody class="bg-[#333845]">
-                    {% for transaksi in transaksi_data %}
+                    {% if transaksi_data_aktif %}
+                        {% for transaksi in transaksi_data_aktif %}
+                        <tr class="border-t border-gray-700">
+                            <td class="py-2 px-4">{{ transaksi.nama_paket }}</td>
+                            <td>{{ transaksi.harga }}</td>
+                            <td>{{ transaksi.resolusi_layar }}</td>
+                            <td>{{ transaksi.dukungan_perangkat|join:", " }}</td>
+                            <td>{{ transaksi.start_date_time }}</td>
+                            <td>{{ transaksi.end_date_time }}</td>
+                        </tr>
+                        {% endfor %}
+                    {% else %}
                     <tr class="border-t border-gray-700">
-                        <td class="py-2 px-4">{{ transaksi.nama_paket }}</td>
-                        <td>{{ transaksi.harga }}</td>
-                        <td>{{ transaksi.resolusi_layar }}</td>
-                        <td>{{ transaksi.dukungan_perangkat|join:", " }}</td>
-                        <td>{{ transaksi.start_date_time }}</td>
-                        <td>{{ transaksi.end_date_time }}</td>
+                        <td class="py-2 px-4">-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
+                        <td>-</td>
                     </tr>
-                    {% endfor %}
+                    {% endif %}
                 </tbody>
             </table>
         </div>
