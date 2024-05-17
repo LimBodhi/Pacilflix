@@ -82,7 +82,7 @@
 <body>
     {% for film in films %}
     <div class="film-details">
-        <h1>Judul: <span id="judul">{{film.judul}}</span></h1>
+        <h1>Judul: <span id="judul">{{ film.judul }}</span></h1>
     </div>
 
     <div class="divider">
@@ -96,12 +96,12 @@
     </div>
 
     <div class="section">
-        <p>Total View: <span id="total-view">0</span></p>
-        <p>Rating Rata-Rata: <span id="rating">0.0</span></p>
-        <p>Sinopsis: <span id="sinopsis">Sinopsis Film</span></p>
-        <p>Durasi Film: <span id="durasi">120 menit</span></p>
-        <p>Tanggal Rilis Film: <span id="tanggal-rilis">YYYY-MM-DD</span></p>
-        <p>URL Film: <a href="#" id="url-film">Link Film</a></p>
+        <p>Total View: <span id="total-view">{{ film.total_view }}</span></p>
+        <p>Rating Rata-Rata: <span id="rating">{{ film.rata_rata_rating }}</span></p>
+        <p>Sinopsis: <span id="sinopsis">{{ film.sinopsis }}</span></p>
+        <p>Durasi Film: <span id="durasi">{{ film.durasi_film }}</span></p>
+        <p>Tanggal Rilis Film: <span id="tanggal-rilis">{{ film.release_date_film }}</span></p>
+        <p>URL Film: <a href="#" id="url-film">{{ film.url_video }}</a></p>
     </div>
 
     <div class="section">
@@ -114,7 +114,7 @@
     </div>
 
     <div class="section">
-        <p>Asal Negara: <span id="asal-negara">Negara</span></p>
+        <p>Asal Negara: <span id="asal-negara">{{ film.asal_negara }}</span></p>
     </div>
 
     <div class="section">
@@ -136,7 +136,7 @@
     </div>
 
     <div class="section">
-        <p>Sutradara: <span id="sutradara">Nama Sutradara</span></p>
+        <p>Sutradara: <span id="sutradara">{{ film.sutradara }}</span></p>
     </div>
 
     <div class="section" id="ulasan">
