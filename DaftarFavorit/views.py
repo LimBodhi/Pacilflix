@@ -40,10 +40,10 @@ def show_favorit_detail(request, judul):
                 WHERE df.username = '{username}' AND df.judul = '{judul}';
                 """
     timestamp_result = query(timestamp_query_str)
-    print('timestamp :',timestamp_result)
+    
     if isinstance(timestamp_result, list) and len(timestamp_result) > 0:
         timestamp = timestamp_result.pop()['timestamp']
-        print('timestamp :',timestamp)
+        
     else:
         timestamp = ''  
 
@@ -53,7 +53,7 @@ def show_favorit_detail(request, judul):
                 WHERE tm.username = '{username}' AND tm.timestamp = '{timestamp}';
                 """
     id_tayangan_result = query(id_tayangan_query_str)
-    print('id_tayangan :',id_tayangan_result)
+    
     if isinstance(id_tayangan_result, list) and len(id_tayangan_result) > 0:
         id_tayangan = id_tayangan_result.pop()['id_tayangan']
     else:
@@ -65,7 +65,7 @@ def show_favorit_detail(request, judul):
                 WHERE t.id = '{id_tayangan}';
                 """
     details_result = query(details_query_str)
-    print('details :',details_result)
+    
     if isinstance(details_result, list) and len(details_result) > 0:
         details = details_result.pop()['judul']
     else:
@@ -80,4 +80,4 @@ def delete_detail_favorit(request):
 
     query_str = f"DELETE FROM TAYANGAN_MEMILIKI_DAFTAR_FAVORIT WHERE id_tayangan='{id_tayangan}' AND timestamp='{timestamp}' AND username = '{username}'"
     query(query_str, return_result=False)
-    return render(show_favorit_detail)
+    return redirect(show_favorit_detail)
