@@ -1,7 +1,8 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from utils.query import query
-from django.http import HttpResponseBadRequest
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 
 # Function to show all favorite shows of a user
 def show_favorit(request):
@@ -14,13 +15,12 @@ def show_favorit(request):
                 '''
     # Execute the query
     hasil = query(query_str)
-    
+
     # Format the timestamp
     for data in hasil:
         data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
     
     return render(request, 'favorit.html', {'favorit': hasil})  
-
 
 def remove_favorit(request):
     if request.method == 'POST':
@@ -30,29 +30,57 @@ def remove_favorit(request):
         query(query_str)
     return redirect('show_favorit')
 
-# Function to show details of a specific favorite show
 def show_favorit_detail(request, judul):
+    if request.method == 'POST':
+        return redirect('lalala')
     username = request.session['username']
-    query_str = f'''
+    timestamp_query_str = f"""
                 SELECT timestamp 
                 FROM daftar_favorit df
                 WHERE df.username = '{username}' AND df.judul = '{judul}';
-                '''
-    # Execute the query
-    timestamp = query(query_str)
+                """
+    timestamp_result = query(timestamp_query_str)
+    print('timestamp :',timestamp_result)
+    if isinstance(timestamp_result, list) and len(timestamp_result) > 0:
+        timestamp = timestamp_result.pop()['timestamp']
+        print('timestamp :',timestamp)
+    else:
+        timestamp = ''  
 
-    query_str = f'''
+    id_tayangan_query_str = f"""
                 SELECT tm.id_tayangan 
                 FROM tayangan_memiliki_daftar_favorit tm
-                WHERE tm.username = '{username}' AND tm.timestamp = '{timestamp.pop()['timestamp']}';
-                '''
-    id_tayangan = query(query_str)
+                WHERE tm.username = '{username}' AND tm.timestamp = '{timestamp}';
+                """
+    id_tayangan_result = query(id_tayangan_query_str)
+    print('id_tayangan :',id_tayangan_result)
+    if isinstance(id_tayangan_result, list) and len(id_tayangan_result) > 0:
+        id_tayangan = id_tayangan_result.pop()['id_tayangan']
+    else:
+        id_tayangan = ''  
 
-    query_str = f'''
+    details_query_str = f"""
                 SELECT t.judul 
                 FROM tayangan t
-                WHERE t.id = '{id_tayangan.pop()['id_tayangan']}';
-                '''
-    hasil = query(query_str)
+                WHERE t.id = '{id_tayangan}';
+                """
+    details_result = query(details_query_str)
+    print('details :',details_result)
+    if isinstance(details_result, list) and len(details_result) > 0:
+        details = details_result.pop()['judul']
+    else:
+        details = ''  
 
-    return render(request, 'favorit_detail.html', {'details': hasil})
+    return render(request, 'favorit_detail.html', {'details': details, 'timestamp': timestamp, 'id_tayangan': id_tayangan, 'user':request.session['username'], 'judul':judul})
+
+def delete_detail_favorit(request):
+    print("in delete detail favorit")
+    timestamp = request.POST.get('timestamp')
+    id_tayangan = request.POST.get('id_tayangan')
+    username = request.POST.get('username')
+    print('zczc'+timestamp, username, id_tayangan)
+
+    query_str = f"DELETE FROM TAYANGAN_MEMILIKI_DAFTAR_FAVORIT WHERE id_tayangan='{id_tayangan}' AND timestamp='{timestamp}' AND username = '{username}'"
+    query(query_str, return_result=False)
+    print('query:' ,query_str)
+    return render("<h1>HAHA</h1>")
