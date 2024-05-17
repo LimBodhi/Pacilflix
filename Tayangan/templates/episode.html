@@ -1,27 +1,137 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
-    <div class="container mx-auto py-12 px-4">
-        <h2 class="text-center text-4xl font-bold mb-8">Episode</h2>
-
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Halaman Episode</title>
         <style>
+            body {
+                font-family: 'Inter', sans-serif;
+                background-color: #242831;
+                color: #e4e6eb;
+                margin: 0;
+                padding: 0;
+            }
+            h1, h2 {
+                text-align: center;
+                font-size: 4xl;
+                font-weight: bold;
+                margin-bottom: 8px;
+            }
+            button, input[type="number"], input[type="text"] {
+                background-color: #333845;
+                border: 1px solid #777;
+                color: white;
+                padding: 8px 12px;
+                margin: 5px;
+                border-radius: 8px;
+                cursor: pointer;
+                transition: background-color 0.3s;
+            }
+            button:hover {
+                background-color: #d14f4f;
+            }
+            ul {
+                list-style: none;
+                padding-left: 0;
+            }
+            li {
+                margin-bottom: 5px;
+            }
+            a {
+                color: #e4e6eb;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+            .container {
+                width: 90%;
+                margin: auto;
+                padding: 20px;
+                background-color: #333845;
+                border-radius: 8px;
+            }
             table {
-                border-collapse: collapse;
                 width: 100%;
-                background-color: #333845; /* Slightly darker table background */
+                border-collapse: collapse;
+                background-color: #333845;
             }
             th, td {
-                border: 1px solid #777; /* Lighter border color */
                 padding: 8px;
-                text-align: left;
-                color: white; /* White text color for readability */
+                border: 1px solid #777;
+                color: white;
             }
             th {
-                background-color: #50555c; /* Darker header background */
+                background-color: #50555c;
+                text-align: center;
             }
+            td {
+                text-align: left;
+            }
+            .info-label {
+                font-weight: bold;
+                margin-right: 5px;
+            }
+            
         </style>
-        
+    </head>
+<body>
+    <div class="container">
+        <h2>Halaman Episode</h2>
+        <button id="tonton_button">Tonton</button>
+        <p><span class="info-label">Judul:</span> <span id="judul_film"></span></p>
+        <p><span class="info-label">Sub Judul:</span> <span id="sub_judul_film"></span></p>
+        <p><span class="info-label">Episode Lainnya:</span></p>
+        <ul id="episode_list">
+            <!-- Daftar episode akan ditambahkan melalui JavaScript -->
+        </ul>
+        <p><span class="info-label">Sinopsis Episode:</span> <span id="sinopsis"></span></p>
+        <p><span class="info-label">Durasi Episode:</span> <span id="durasi"></span></p>
+        <p><span class="info-label">URL Episode:</span> <a href="#" id="url_film">Link</a></p>
+        <p><span class="info-label">Tanggal Rilis Episode:</span> <span id="tanggal_rilis"></span></p>
     </div>
-</div>
-{% endblock %}
+
+    <script>
+        // Fungsi untuk menambahkan data film ke dalam elemen HTML
+        function tambahkanDataFilm(data) {
+            document.getElementById('judul_film').innerText = data.judul;
+            document.getElementById('sub_judul_film').innerText = data.subjudul;
+            document.getElementById('sinopsis').innerText = data.sinopsis;
+            document.getElementById('durasi').innerText = data.durasi;
+            document.getElementById('tanggal_rilis').innerText = data.tanggal_rilis;
+            document.getElementById('url_film').href = data.url_film;
+            
+            // Menambahkan episode ke dalam daftar
+            var episodeList = document.getElementById('episode_list');
+            data.episode.forEach(function(episode) {
+                var li = document.createElement('li');
+                li.textContent = episode;
+                episodeList.appendChild(li);
+            });
+        }
+
+        // Fungsi untuk menambahkan ulasan ke dalam daftar ulasan
+
+
+        // Simulasi data film
+        var dataSeries = {
+            judul: "Series Dummy",
+            subjudul: "Sub Judul Dummy",
+            episode: ["Episode 1", "Episode 2", "Episode 3"],
+            sinopsis: "Ini adalah sinopsis episode series dummy. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
+            durasi: "30 menit",
+            tanggal_rilis: "15 Januari 2023",
+            url_film: "#",
+        };
+
+        // Menambahkan data film ke dalam halaman
+        tambahkanDataFilm(dataSeries);
+
+    </script>
+</body>
+</html>
+{% endblock content %}
