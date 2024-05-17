@@ -21,9 +21,7 @@
             </div>
             {% if messages %}
                 {% for message in messages %}
-                    {% if forloop.first %}
-                        <p class="text-center text-sm text-red-500 mt-2">{{ message }}</p>
-                    {% endif %}
+                    <p class="text-center text-sm text-red-500 mt-2">{{ message }}</p>
                 {% endfor %}
             {% endif %}
         </form>
