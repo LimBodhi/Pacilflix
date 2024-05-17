@@ -40,16 +40,14 @@
         <table class="w-full text-left rounded-lg overflow-hidden">
             <thead>
                 <tr>
-                    <th>Judul</th>
-                    <th>Waktu Ditambahkan</th>
+                    <th>Judu Daftar Favorit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                {% for film in favorit %}
+                {% for film in details %}
                 <tr class="border-t border-gray-700">
-                    <td><a href="{% url 'show_favorit_detail' film.judul %}">{{ film.judul }}</a></td>
-                    <td>{{ film.formatted_timestamp }}</td>
+                    <td>{{ film.judul }}</td>
                     <td>
                         <form action="{% url 'remove_favorit' %}" method="post">
                             {% csrf_token %}
