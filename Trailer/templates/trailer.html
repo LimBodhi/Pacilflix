@@ -5,9 +5,9 @@
     <div class="container mx-auto py-12 px-4">
         <h2 class="text-center text-4xl font-bold mb-8">Trailer</h2>
 
-        <form action="{% url 'show_search' %}" method="post" class="flex justify-center mb-8">
+        <form action="{% url 'show_search' %}" method="get" class="flex justify-center mb-8">
             {% csrf_token %}
-            <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+            <input type="text" name="search" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
         </form>
 
@@ -27,14 +27,11 @@
                 background-color: #50555c; /* Darker header background */
             }
         </style>
-        <form method="get" class="button">
-
-            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Global</button>
-        </form>
-        <form method="get" class="button">
-
-            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Negara Pengguna</button>
-        </form>
+        <div class="flex justify-center mb-4">
+            <form method="get" class="button">
+                <button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded mr-4">Top 10 Global</button>
+            </form>
+        </div>
         <table>
             <thead>
                 <tr>
@@ -49,12 +46,12 @@
             <tbody>
                 {% for trailer in trailers %}
                 <tr class="border-t border-gray-700">
-                    <td>{{ 1 }}</td>
+                    <td>{{ trailer.peringkat }}</td>
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
                     <td>{{ trailer.formatted_timestamp }}</td>
-                    <td>{{ 1 }}</td>
+                    <td>{{ trailer.total_view }}</td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -74,7 +71,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for trailer in trailers %}
+                {% for trailer in films %}
                 <tr class="border-t border-gray-700">
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
@@ -83,7 +80,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
+                    <td colspan="4">Tidak ada film yang ditemukan.</td>
                 </tr>
                 {% endfor %}
             </tbody>
@@ -99,7 +96,7 @@
                 </tr>
             </thead>
             <tbody>
-                {% for trailer in trailers %}
+                {% for trailer in series %}
                 <tr class="border-t border-gray-700">
                     <td>{{ trailer.judul }}</td>
                     <td>{{ trailer.sinopsis_trailer }}</td>
@@ -108,7 +105,7 @@
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="4">Tidak ada trailer yang ditemukan.</td>
+                    <td colspan="4">Tidak ada series yang ditemukan.</td>
                 </tr>
                 {% endfor %}
             </tbody>
