@@ -31,10 +31,19 @@ def show_unduhan(request):
     
     return render(request, 'index.html', {'unduhan': hasil})
 
+from django.contrib import messages
+
 def remove_unduhan(request):
     if request.method == 'POST':
         id_tayangan = request.POST.get('id_tayangan')
         username = request.user.username
-        query_str = f"DELETE FROM tayangan_terunduh WHERE id_tayangan = '{id_tayangan}' AND username = '{username}';"
-        query(query_str)
+        try:
+            # Attempt to delete the unduhan
+            query_str = f"DELETE FROM tayangan_terunduh WHERE id_tayangan = '{id_tayangan}' AND username = '{username}';"
+            query(query_str)
+            # If successful, display a success message
+            messages.success(request, 'Tayangan berhasil dihapus dari daftar unduhan.')
+        except Exception as e:
+            # If unsuccessful, display an error message
+            messages.error(request, f'Gagal menghapus tayangan dari daftar unduhan: {str(e)}')
     return redirect('show_unduhan')

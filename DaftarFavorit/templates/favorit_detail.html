@@ -40,28 +40,30 @@
         <table class="w-full text-left rounded-lg overflow-hidden">
             <thead>
                 <tr>
-                    <th>Judu Daftar Favorit</th>
+                    <th>Judul Daftar Favorit</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                {% for film in details %}
+                {% if details %}
                 <tr class="border-t border-gray-700">
-                    <td>{{ film.judul }}</td>
+                    <td>{{ details }}</td>
                     <td>
-                        <form action="{% url 'remove_favorit' %}" method="post">
+                        <form action="{% url 'delete_detail' %}" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="judul" value="{{ film.judul }}">
-                            <input type="hidden" name="username" value="{{ film.username }}">
+                            <input type="hidden" name="username" value="{{ user }}">
+                            <input type="hidden" name="timestamp" value="{{ timestamp }}">
+                            <input type="hidden" name="id_tayangan" value="{{ id_tayangan }}">
                             <button type="submit" class="remove-button">Hapus</button>
                         </form>
                     </td>
                 </tr>
-                {% empty %}
+                {% endif %}
+                {% if not details %}
                 <tr>
-                    <td colspan="3">Tidak ada film favorit yang ditemukan.</td>
+                    <td colspan="4">Tidak ada film favorit yang ditemukan.</td>
                 </tr>
-                {% endfor %}
+                {% endif %}
             </tbody>
         </table>
     </div>
