@@ -51,9 +51,9 @@
                     <td>
                         <form action="{% url 'lalala' %}" method="post">
                             {% csrf_token %}
-                            <input type="" name="username" value="{{ user }}">
-                            <input type="" name="timestamp" value="{{ timestamp }}">
-                            <input type="" name="id_tayangan" value="{{ id_tayangan }}">
+                            <input type="hidden" name="username" value="{{ user }}">
+                            <input type="hidden" name="timestamp" value="{{ timestamp }}">
+                            <input type="hidden" name="id_tayangan" value="{{ id_tayangan }}">
                             <input type="submit" class="remove-button">
                         </form>
                     </td>
