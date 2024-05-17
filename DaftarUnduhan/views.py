@@ -1,17 +1,24 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from utils.query import query
-
+from datetime import datetime, timedelta
 
 def show_unduhan(request):
     username = request.session['username']
 
-    # Construct the query string with the username
+    # Get the current date and time
+    now = datetime.now()
+
+    # Calculate the date and time for 7 days ago
+    seven_days_ago = now - timedelta(days=7)
+
+    # Construct the query string with the username and the date filter
     query_str = f'''
                 SELECT t.judul, tt.timestamp 
                 FROM tayangan t, tayangan_terunduh tt 
                 WHERE t.id = tt.id_tayangan 
-                AND tt.username = '{username}' 
+                AND tt.username = '{username}'
+                AND tt.timestamp >= '{seven_days_ago.strftime("%Y-%m-%d %H:%M:%S")}'
                 ORDER BY tt.timestamp DESC;
                 '''
 
@@ -24,8 +31,6 @@ def show_unduhan(request):
     
     return render(request, 'index.html', {'unduhan': hasil})
 
-# Fungsi untuk menghapus tayangan yang telah diunduh oleh user
-@login_required
 def remove_unduhan(request):
     if request.method == 'POST':
         id_tayangan = request.POST.get('id_tayangan')
