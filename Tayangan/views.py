@@ -43,7 +43,7 @@ def show_tayangan(request):
     #                     t.url_video_trailer, 
     #                     t.release_date_trailer,
     #                     vv.total_view as total_view,
-    #                     t.id
+    #                     t.id as id_tayangan
     #                 FROM ValidViews vv
     #                 JOIN TAYANGAN t on vv.id_tayangan = t.id
     #                 ORDER BY vv.total_view DESC
@@ -74,17 +74,20 @@ def show_search_tayangan(request):
     return render(request, 'search_tayangan.html', {'tayangans': hasil})
 
 def show_halaman_tayangan(request):
-    id = request.POST.get('id')
-
+    if request.method == 'POST':
+        id_tayangan = request.POST.get('id_tayangan')
+    return redirect('show_film')
     
 def show_film(request):
-    id_film = request.POST.get('id_film')
-    query_str = f"SELECT tayangan.judul,,,tayangan.sinopsis_trailer, tayangan.   FROM TAYANGAN JOIN FILM ON film.id_tayangan = tayangan.id WHERE id_tayangan = '{id_film}';"
+    if request.method == 'POST':
+        id_film = request.POST.get('id_film')
+    query_str = f"SELECT * FROM TAYANGAN JOIN FILM ON film.id_tayangan = tayangan.id WHERE id_tayangan = '{id_film}';"
     hasil = query(query_str)
     return render(request, 'film.html', {'films': hasil})
 
 def show_series(request):
-    id_series = request.POST.get('id_series')
+    if request.method == 'POST':
+        id_series = request.POST.get('id_series')
     query_str = f"SELECT * FROM TAYANGAN JOIN SERIES ON series.id_tayangan = tayangan.id WHERE id_tayangan = '{id_series}';"
     hasil = query(query_str)
     return render(request, 'series.html', {'series': hasil})

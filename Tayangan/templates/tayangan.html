@@ -5,7 +5,7 @@
     <div class="container mx-auto py-12 px-4">
         <h2 class="text-center text-4xl font-bold mb-8">Daftar Tayangan</h2>
 
-        <form action="{% url 'show_search' %}" method="get" class="flex justify-center mb-8">
+        <form action="#" method="get" class="flex justify-center mb-8">
             {% csrf_token %}
             <input type="text" name="search" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
@@ -54,9 +54,9 @@
                     <td>{{ trailer.release_date_trailer }}</td>
                     <td>{{ trailer.total_view }}</td>
                     <td>
-                        <form action="{% url 'show_halaman_tayangan' %}" method="post" class="flex justify-center mb-8">
+                        <form action="#" method="post" class="flex justify-center mb-8">
                             {% csrf_token %}
-                            <input type="hidden" name="id" value="{{ trailer.id }}">
+                            <input type="hidden" name="id_tayangan" value="{{ trailer.id_tayangan }}">
                             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
                         </form>
                     </td>
@@ -67,8 +67,8 @@
                 </tr>
                 {% endfor %}
             </tbody>
-        </table>
-        Film
+        </table><br>
+        <h3 class="text-center text-4xl font-bold mb-8">Film</h3>
         <table>
             <thead>
                 <tr>
@@ -86,7 +86,13 @@
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
                     <td>{{ trailer.release_date_trailer }}</td>
-                    <td></td>
+                    <td>
+                        <form action="#" method="post" class="flex justify-center mb-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ trailer.id }}">
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
@@ -94,8 +100,8 @@
                 </tr>
                 {% endfor %}
             </tbody>
-        </table>
-        Series
+        </table><br>
+        <h3 class="text-center text-4xl font-bold mb-8">Series</h3>
         <table>
             <thead>
                 <tr>
@@ -113,7 +119,13 @@
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
                     <td>{{ trailer.release_date_trailer }}</td>
-                    <td></td>
+                    <td>
+                        <form action="#" method="post" class="flex justify-center mb-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ trailer.id }}">
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>

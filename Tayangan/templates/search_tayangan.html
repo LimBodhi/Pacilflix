@@ -43,7 +43,13 @@
                     <td>{{ trailer.sinopsis_trailer }}</td>
                     <td>{{ trailer.url_video_trailer }}</td>
                     <td>{{ trailer.release_date_trailer }}</td>
-                    <td></td>
+                    <td>
+                        <form action="{% url 'show_halaman_tayangan' %}" method="post" class="flex justify-center mb-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ trailer.id }}">
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        </form>
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>

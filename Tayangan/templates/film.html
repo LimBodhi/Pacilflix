@@ -80,9 +80,9 @@
     </style>
 </head>
 <body>
-    {% for trailer in trailers %}
+    {% for film in films %}
     <div class="film-details">
-        <h1>Judul: <span id="judul">Judul Film</span></h1>
+        <h1>Judul: <span id="judul">{{film.judul}}</span></h1>
     </div>
 
     <div class="divider">
