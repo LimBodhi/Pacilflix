@@ -107,9 +107,9 @@
     <div class="section">
         <p>Genre:</p>
         <ul id="genre">
-            <li>Nama Genre 1</li>
-            <li>Nama Genre 2</li>
-            <!-- Tambahkan genre sesuai kebutuhan -->
+            {% for genre in film.genres %}
+                <li>{{ genre }}</li>
+            {% endfor %}
         </ul>
     </div>
 
@@ -120,24 +120,25 @@
     <div class="section">
         <p>Pemain:</p>
         <ul id="pemain">
-            <li>Nama Pemain 1</li>
-            <li>Nama Pemain 2</li>
-            <!-- Tambahkan pemain sesuai kebutuhan -->
+            {% for pemain in film.pemains %}
+                <li>{{ pemain }}</li>
+            {% endfor %}
         </ul>
     </div>
 
     <div class="section">
         <p>Penulis Skenario:</p>
         <ul id="penulis-skenario">
-            <li>Nama Penulis Skenario 1</li>
-            <li>Nama Penulis Skenario 2</li>
-            <!-- Tambahkan penulis skenario sesuai kebutuhan -->
+            {% for penulis in film.penulis_skenario %}
+                <li>{{ penulis }}</li>
+            {% endfor %}
         </ul>
     </div>
 
     <div class="section">
         <p>Sutradara: <span id="sutradara">{{ film.sutradara }}</span></p>
     </div>
+    {% endfor %}
 
     <div class="section" id="ulasan">
         <h2>Bagian Ulasan</h2>
