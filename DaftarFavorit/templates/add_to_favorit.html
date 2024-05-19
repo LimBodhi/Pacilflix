@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block title %}
+{% endblock %}
+
+{% block content %}
+<head>
+    <title>Sukses Menambahkan Unduhan</title>
+    <style>
+        .modal {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+        
+        h2, p, button{
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+
+
+    </style>
+</head>
+<body>
+    <div class="modal">
+        <h2>TAMBAH KE DAFTAR FAVORIT</h2>
+        <form method="POST" action="{% url 'daftar_favorit:tambahkan' %}">
+            {% csrf_token %}
+            <label for="favoriteList">Judul Daftar Favorit:</label>
+            <select id="favoriteList" name="favoriteList">
+                {% for favorit in daftarFavorit %}
+                    <option value="{{ favorit.timestamp }}">{{ favorit.judul }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <input type="hidden" name="id" value="{{ id_tayangan }}">
+            <button type="submit" class="btn-outline-success">Tambah</button>
+        </form>
+    </div>
+</body>
+{% endblock %}
