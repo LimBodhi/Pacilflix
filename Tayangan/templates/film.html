@@ -165,11 +165,15 @@
             {% endfor %}
         </tbody>
     </table>
-    <form method="get" class="flex justify-center mb-8">
+    {% for film in films %}
+    <form action="{% url 'Ulasan:add_ulasan' %}" method="post" class="flex justify-center mb-8">
         {% csrf_token %}
-        <input type="hidden" name="username" value="{{  }}">
-        <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+        <input type="hidden" name="id_film" value="{{ film.id_tayangan }}">
+        <input type="number" id="rating" name="rating" min="1" max="5">
+        <input class="w-full rounded-lg border border-gray-500 px-4 py-3 bg-[#333845]" type="text" name="deskripsi" id="deskripsi" placeholder="Ulasan anda terhadap film ini ...">
+        <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tambah</button>
     </form>
+    {% endfor %}
 
 </body>
 </html>

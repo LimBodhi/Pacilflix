@@ -4,7 +4,6 @@ from utils.query import query
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.csrf import csrf_exempt
 
-
 def show_tayangan(request):
     # query_str = """ WITH TotalDurationEpisode AS (
     #                     SELECT
@@ -108,6 +107,7 @@ def show_film(request):
         ARRAY_AGG(DISTINCT cp.nama) AS pemains, 
         ARRAY_AGG(DISTINCT cps.nama) AS penulis_skenario, 
         cs.nama AS sutradara
+        f.id_tayangan
     FROM 
         TAYANGAN t 
     JOIN 
