@@ -2,9 +2,15 @@
     <div class="flex items-center justify-between px-8">
         <div class="flex items-center">
             <div class="py-6 mr-4">
+                {% if not request.session.is_logged_in %}
                 <a href="/" class="inline font-bold text-2xl text-white">
                     <span class="bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">PacilFlix</span> - D6
                 </a>
+                {% else %}
+                <span class="inline font-bold text-2xl text-white">
+                    <span class="bg-gradient-to-r from-red-500 to-pink-500 text-transparent bg-clip-text">PacilFlix</span> - D6
+                </span>
+                {% endif %}
             </div>
 
             <div class="flex font-semibold items-center text-white gap-12 pl-14">
@@ -15,8 +21,8 @@
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/ulasan/">Reviews</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/unduhan/">Downloads</a>
                 <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/favorit">Favorites</a>
-                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/kontributor/">Contributors</a>
-                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="/langganan/">Subscription</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Contributors</a>
+                <a class="nav-btn relative after:content-[''] after:bg-white after:h-[2px] after:w-[0%] after:left-0 after:-bottom-[5px] after:rounded-xl after:absolute after:duration-300" href="#">Subscription</a>
                 {% endif %}
             </div>
         </div>
