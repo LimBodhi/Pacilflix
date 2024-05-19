@@ -1,7 +1,8 @@
-from django.contrib.auth.decorators import login_required
+from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from utils.query import query
 from datetime import datetime, timedelta
+from django.contrib import messages
 
 def show_unduhan(request):
     username = request.session['username']
@@ -14,7 +15,7 @@ def show_unduhan(request):
 
     # Construct the query string with the username and the date filter
     query_str = f'''
-                SELECT t.judul, tt.timestamp 
+                SELECT t.judul, tt.timestamp , tt.id_tayangan, tt.username
                 FROM tayangan t, tayangan_terunduh tt 
                 WHERE t.id = tt.id_tayangan 
                 AND tt.username = '{username}'
@@ -31,19 +32,35 @@ def show_unduhan(request):
     
     return render(request, 'index.html', {'unduhan': hasil})
 
-from django.contrib import messages
-
 def remove_unduhan(request):
     if request.method == 'POST':
         id_tayangan = request.POST.get('id_tayangan')
-        username = request.user.username
+        print('id_tayangan', id_tayangan)
+        username = request.POST.get('username')
+        print('username', username)
+
+        # Check if the video has been added for more than 1 day
         try:
-            # Attempt to delete the unduhan
-            query_str = f"DELETE FROM tayangan_terunduh WHERE id_tayangan = '{id_tayangan}' AND username = '{username}';"
-            query(query_str)
-            # If successful, display a success message
-            messages.success(request, 'Tayangan berhasil dihapus dari daftar unduhan.')
+            query_str = f"SELECT timestamp FROM tayangan_terunduh WHERE id_tayangan = '{id_tayangan}' AND username = '{username}';"
+            result = query(query_str)
+            print('result', result)
+            if result:
+                timestamp = result[0]['timestamp']
+                now = datetime.now()
+                time_difference = now - timestamp
+                print('timestamp', timestamp)
+                print('now', now)
+                print('time_difference', time_difference)
+                if time_difference.days >= 1:
+                    print('Video has been added for more than 1 day, proceed with deletion')
+                    # Video has been added for more than 1 day, proceed with deletion
+                    query(f"DELETE FROM tayangan_terunduh WHERE id_tayangan = '{id_tayangan}' AND username = '{username}';")
+                else:
+                    print('Tayangan tidak dapat dihapus karena belum diunduh selama lebih dari 1 hari.')
+                    messages.error(request, 'Tayangan tidak dapat dihapus karena belum diunduh selama lebih dari 1 hari.')
+            else:
+                messages.error(request, 'Tayangan tidak ditemukan dalam daftar unduhan.')
         except Exception as e:
-            # If unsuccessful, display an error message
             messages.error(request, f'Gagal menghapus tayangan dari daftar unduhan: {str(e)}')
+
     return redirect('show_unduhan')

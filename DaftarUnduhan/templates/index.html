@@ -54,7 +54,13 @@
                         <form action="{% url 'remove_unduhan' %}" method="post">
                             {% csrf_token %}
                             <input type="hidden" name="id_tayangan" value="{{ film.id_tayangan }}">
+                            <input type="hidden" name="username" value="{{ film.username }}">
                             <button type="submit" class="remove-button">Hapus</button>
+                            {% if messages %}
+                                {% for message in messages %}
+                                    <p class="text-center text-sm text-red-500 mt-2">{{ message }}</p>
+                                {% endfor %}
+                            {% endif %}
                         </form>
                     </td>
                 </tr>
@@ -68,3 +74,8 @@
     </div>
 </div>
 {% endblock %}
+
+
+{% block script %}
+<script src="/static/js/modal_unduhan.js"></script>
+{% endblock script %}
