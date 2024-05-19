@@ -5,18 +5,12 @@
     <div class="container mx-auto py-12 px-4">
         <h2 class="text-center text-4xl font-bold mb-8">Daftar Tayangan</h2>
 
-        <div class="flex justify-center mb-8">
-            <input type="text" placeholder="Cari Tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+        <form action="{% url 'Tayangan:show_search_tayangan' %}" method="get" class="flex justify-center mb-8">
+            {% csrf_token %}
+            <input type="text" name="search" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
-        </div>
+        </form>
 
-        <h3 class="text-2xl font-semibold mb-4">10 Tayangan Terbaik Minggu Ini:</h3>
-
-        <div class="flex justify-center mb-4">
-            <button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded mr-4">Top 10 Global</button>
-            <button class="bg-gray-500 hover:bg-gray-600 text-white font-bold py-2 px-4 rounded">Top 10 Negara</button>
-        </div>
-        
         <style>
             table {
                 border-collapse: collapse;
@@ -31,78 +25,115 @@
             }
             th {
                 background-color: #50555c; /* Darker header background */
-                text-align: center;
             }
         </style>
-
-        <div class="overflow-x-auto mb-8">
-            <table class="w-full text-left rounded-lg overflow-hidden">
-                <thead class="bg-[#333845] text-white">
-                    <tr>
-                        <th class="py-3 px-4">Peringkat</th>
-                        <th class="py-3 px-4">Judul</th>
-                        <th class="py-3 px-4">Sinopsis Trailer</th>
-                        <th class="py-3 px-4">URL Trailer</th>
-                        <th class="py-3 px-4">Tanggal Rilis Trailer</th>
-                        <th class="py-3 px-4">Total View 7 Hari Terakhir</th>
-                        <th class="py-3 px-4">Tayangan</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-[#333845]">
-                    <!-- Dummy data for top shows -->
-                    <tr><td>1</td><td>Show One</td><td>A thrilling adventure</td><td><a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">https://www.youtube.com/watch?v=dQw4w9WgXcQ</a></td><td>2023-01-01</td><td>500,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>2</td><td>Show Two</td><td>A mystery unfolds</td><td><a href="https://www.youtube.com/watch?v=oHg5SJYRHA0">https://www.youtube.com/watch?v=oHg5SJYRHA0</a></td><td>2023-01-02</td><td>450,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>3</td><td>Show Three</td><td>An epic drama</td><td><a href="https://www.youtube.com/watch?v=DLzxrzFCyOs">https://www.youtube.com/watch?v=DLzxrzFCyOs</a></td><td>2023-01-03</td><td>400,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>4</td><td>Show Four</td><td>Comedy and laughs</td><td><a href="https://www.youtube.com/watch?v=j5a0jTc9S10">https://www.youtube.com/watch?v=j5a0jTc9S10</a></td><td>2023-01-04</td><td>350,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>5</td><td>Show Five</td><td>A historical biopic</td><td><a href="https://www.youtube.com/watch?v=eBGIzVpNmkM">https://www.youtube.com/watch?v=eBGIzVpNmkM</a></td><td>2023-01-05</td><td>300,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>6</td><td>Show Six</td><td>Sci-fi action</td><td><a href="https://www.youtube.com/watch?v=9hngcSuHvxg">https://www.youtube.com/watch?v=9hngcSuHvxg</a></td><td>2023-01-06</td><td>250,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>7</td><td>Show Seven</td><td>A romantic story</td><td><a href="https://www.youtube.com/watch?v=2Vv-BfVoq4g">https://www.youtube.com/watch?v=2Vv-BfVoq4g</a></td><td>2023-01-07</td><td>200,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>8</td><td>Show Eight</td><td>Horror and suspense</td><td><a href="https://www.youtube.com/watch?v=ysL5Ey9acWw">https://www.youtube.com/watch?v=ysL5Ey9acWw</a></td><td>2023-01-08</td><td>150,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>9</td><td>Show Nine</td><td>A fantastical journey</td><td><a href="https://www.youtube.com/watch?v=6zXDo4dL7SU">https://www.youtube.com/watch?v=6zXDo4dL7SU</a></td><td>2023-01-09</td><td>100,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>10</td><td>Show Ten</td><td>A documentary series</td><td><a href="https://www.youtube.com/watch?v=0fzcA3RSVTQ">https://www.youtube.com/watch?v=0fzcA3RSVTQ</a></td><td>2023-01-10</td><td>50,000</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                </tbody>
-            </table>
+        <div class="flex justify-center mb-4">
+            <form method="get" class="button">
+                <button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded mr-4">Top 10 Global</button>
+            </form>
         </div>
-
-        <h3 class="text-2xl font-semibold mb-4">Film:</h3>
-        <div class="overflow-x-auto mb-8">
-            <table class="w-full text-left rounded-lg overflow-hidden">
-                <thead class="bg-[#333845] text-white">
-                    <tr>
-                        <th class="py-3 px-4">Judul</th>
-                        <th class="py-3 px-4">Sinopsis Trailer</th>
-                        <th class="py-3 px-4">URL Trailer</th>
-                        <th class="py-3 px-4">Tanggal Rilis Trailer</th>
-                        <th class="py-3 px-4">Tayangan</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-[#333845]">
-                    <!-- Dummy data for films -->
-                    <tr><td>Film One</td><td>A space odyssey</td><td><a href="https://www.youtube.com/watch?v=8o1ieehttdw">https://www.youtube.com/watch?v=8o1ieehttdw</a></td><td>2023-01-15</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>Film Two</td><td>An underworld story</td><td><a href="https://www.youtube.com/watch?v=bWpK0wsnitc">https://www.youtube.com/watch?v=bWpK0wsnitc</a></td><td>2023-01-16</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                </tbody>
-            </table>
-        </div>
-
-        <h3 class="text-2xl font-semibold mb-4">Series:</h3>
-        <div class="overflow-x-auto">
-            <table class="w-full text-left rounded-lg overflow-hidden">
-                <thead class="bg-[#333845] text-white">
-                    <tr>
-                        <th class="py-3 px-4">Judul</th>
-                        <th class="py-3 px-4">Sinopsis Trailer</th>
-                        <th class="py-3 px-4">URL Trailer</th>
-                        <th class="py-3 px-4">Tanggal Rilis Trailer</th>
-                        <th class="py-3 px-4">Tayangan</th>
-                    </tr>
-                </thead>
-                <tbody class="bg-[#333845]">
-                    <!-- Dummy data for series -->
-                    <tr><td>Series One</td><td>A medieval saga</td><td><a href="https://www.youtube.com/watch?v=rhXNpvdZIqc">https://www.youtube.com/watch?v=rhXNpvdZIqc</a></td><td>2023-01-20</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                    <tr><td>Series Two</td><td>A detective series</td><td><a href="https://www.youtube.com/watch?v=s2rXsAVHHzk">https://www.youtube.com/watch?v=s2rXsAVHHzk</a></td><td>2023-01-21</td><td><button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button></td></tr>
-                </tbody>
-            </table>
-        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Peringkat</th>
+                    <th>Judul</th>
+                    <th>Sinopsis Trailer</th>
+                    <th>URL Trailer</th>
+                    <th>Tanggal Rilis Trailer</th>
+                    <th>Total View 7 Hari Terakhir</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trailer in tayangans %}
+                <tr class="border-t border-gray-700">
+                    <td>{{ trailer.peringkat }}</td>
+                    <td>{{ trailer.judul }}</td>
+                    <td>{{ trailer.sinopsis_trailer }}</td>
+                    <td>{{ trailer.url_video_trailer }}</td>
+                    <td>{{ trailer.release_date_trailer }}</td>
+                    <td>{{ trailer.total_view }}</td>
+                    <td>
+                        <form action="{% url 'Tayangan:show_halaman_tayangan' %}" method="post" class="flex justify-center mb-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="id_tayangan" value="{{ trailer.id }}">
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Tidak ada tayangan yang ditonton selama seminggu terakhir.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table><br>
+        <h3 class="text-center text-4xl font-bold mb-8">Film</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Sinopsis Trailer</th>
+                    <th>URL Trailer</th>
+                    <th>Tanggal Rilis Trailer</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trailer in films %}
+                <tr class="border-t border-gray-700">
+                    <td>{{ trailer.judul }}</td>
+                    <td>{{ trailer.sinopsis_trailer }}</td>
+                    <td>{{ trailer.url_video_trailer }}</td>
+                    <td>{{ trailer.release_date_trailer }}</td>
+                    <td>
+                        <form action="{% url 'Tayangan:show_film' %}" method="post" class="flex justify-center mb-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="id_film" value="{{ trailer.id }}">
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Tidak ada film yang ditemukan.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table><br>
+        <h3 class="text-center text-4xl font-bold mb-8">Series</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Judul</th>
+                    <th>Sinopsis Trailer</th>
+                    <th>URL Trailer</th>
+                    <th>Tanggal Rilis Trailer</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for trailer in series %}
+                <tr class="border-t border-gray-700">
+                    <td>{{ trailer.judul }}</td>
+                    <td>{{ trailer.sinopsis_trailer }}</td>
+                    <td>{{ trailer.url_video_trailer }}</td>
+                    <td>{{ trailer.release_date_trailer }}</td>
+                    <td>
+                        <form action="{% url 'Tayangan:show_series' %}" method="post" class="flex justify-center mb-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="id_series" value="{{ trailer.id }}">
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        </form>
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Tidak ada series yang ditemukan.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 </div>
 {% endblock %}

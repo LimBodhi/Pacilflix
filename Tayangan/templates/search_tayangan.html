@@ -3,10 +3,10 @@
 {% block content %}
 <div class="min-h-screen bg-[#242831] text-slate-100 font-inter">
     <div class="container mx-auto py-12 px-4">
-        <h2 class="text-center text-4xl font-bold mb-8">Hasil Pencarian</h2>
+        <h2 class="text-center text-4xl font-bold mb-8">Pencarian</h2>
 
         <form method="get" class="flex justify-center mb-8">
-            <input type="text" name="search" value="{{ query }}" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
+            <input type="text" name="search" placeholder="Cari tayangan..." class="bg-[#333845] text-white border border-gray-700 p-2 rounded">
             <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Cari</button>
         </form>
 
@@ -24,30 +24,38 @@
             }
             th {
                 background-color: #50555c; /* Darker header background */
-                text-align: center;
             }
         </style>
-        
-        <table class="w-full text-left rounded-lg overflow-hidden">
-            <thead class="bg-[#333845] text-white">
+        <table>
+            <thead>
                 <tr>
-                    <th class="py-3 px-4">Judul</th>
-                    <th class="py-3 px-4">Sinopsis Trailer</th>
-                    <th class="py-3 px-4">URL Trailer</th>
-                    <th class="py-3 px-4">Tanggal Rilis Trailer</th>
-                    <th class="py-3 px-4">Tayangan</th>
+                    <th>Judul</th>
+                    <th>Sinopsis Trailer</th>
+                    <th>URL Trailer</th>
+                    <th>Tanggal Rilis Trailer</th>
+                    <th>Aksi</th>
                 </tr>
             </thead>
-            <tbody class="bg-[#333845]">
+            <tbody>
+                {% for trailer in tayangans %}
                 <tr class="border-t border-gray-700">
-                    <td>Dua Garis Merah</td>
-                    <td>Kisah romansa dua remaja yang tinggal di pedalaman</td>
-                    <td>https://www.youtube.com/watch?v=dQw4w9WgXcQ</td>
-                    <td>2023-05-01</td>
+                    <td>{{ trailer.judul }}</td>
+                    <td>{{ trailer.sinopsis_trailer }}</td>
+                    <td>{{ trailer.url_video_trailer }}</td>
+                    <td>{{ trailer.release_date_trailer }}</td>
                     <td>
-                        <button class="bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        <form action="{% url 'Tayangan:show_halaman_tayangan' %}" method="post" class="flex justify-center mb-8">
+                            {% csrf_token %}
+                            <input type="hidden" name="id" value="{{ trailer.id }}">
+                            <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+                        </form>
                     </td>
                 </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="4">Tidak ada tayangan yang ditemukan.</td>
+                </tr>
+                {% endfor %}
             </tbody>
         </table>
     </div>

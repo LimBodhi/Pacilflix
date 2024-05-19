@@ -3,135 +3,115 @@
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Halaman Episode</title>
-        <style>
-            body {
-                font-family: 'Inter', sans-serif;
-                background-color: #242831;
-                color: #e4e6eb;
-                margin: 0;
-                padding: 0;
-            }
-            h1, h2 {
-                text-align: center;
-                font-size: 4xl;
-                font-weight: bold;
-                margin-bottom: 8px;
-            }
-            button, input[type="number"], input[type="text"] {
-                background-color: #333845;
-                border: 1px solid #777;
-                color: white;
-                padding: 8px 12px;
-                margin: 5px;
-                border-radius: 8px;
-                cursor: pointer;
-                transition: background-color 0.3s;
-            }
-            button:hover {
-                background-color: #d14f4f;
-            }
-            ul {
-                list-style: none;
-                padding-left: 0;
-            }
-            li {
-                margin-bottom: 5px;
-            }
-            a {
-                color: #e4e6eb;
-                text-decoration: none;
-            }
-            a:hover {
-                text-decoration: underline;
-            }
-            .container {
-                width: 90%;
-                margin: auto;
-                padding: 20px;
-                background-color: #333845;
-                border-radius: 8px;
-            }
-            table {
-                width: 100%;
-                border-collapse: collapse;
-                background-color: #333845;
-            }
-            th, td {
-                padding: 8px;
-                border: 1px solid #777;
-                color: white;
-            }
-            th {
-                background-color: #50555c;
-                text-align: center;
-            }
-            td {
-                text-align: left;
-            }
-            .info-label {
-                font-weight: bold;
-                margin-right: 5px;
-            }
-            
-        </style>
-    </head>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Halaman Series</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #242831;
+            color: #e4e6eb;
+            margin: 0;
+            padding: 0;
+        }
+        h1, h2 {
+            text-align: center;
+            font-size: 4xl;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        button, input[type="number"], input[type="text"] {
+            background-color: #333845;
+            border: 1px solid #777;
+            color: white;
+            padding: 8px 12px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        button:hover {
+            background-color: #d14f4f;
+        }
+        ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 5px;
+        }
+        a {
+            color: #e4e6eb;
+            text-decoration: none;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+        .container {
+            width: 90%;
+            margin: auto;
+            padding: 20px;
+            background-color: #333845;
+            border-radius: 8px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: #333845;
+        }
+        th, td {
+            padding: 8px;
+            border: 1px solid #777;
+            color: white;
+        }
+        th {
+            background-color: #50555c;
+            text-align: center;
+        }
+        td {
+            text-align: left;
+        }
+        .info-label {
+            font-weight: bold;
+            margin-right: 5px;
+        }
+        
+    </style>
+</head>
 <body>
-    <div class="container">
-        <h2>Halaman Episode</h2>
-        <button id="tonton_button">Tonton</button>
-        <p><span class="info-label">Judul:</span> <span id="judul_film"></span></p>
-        <p><span class="info-label">Sub Judul:</span> <span id="sub_judul_film"></span></p>
-        <p><span class="info-label">Episode Lainnya:</span></p>
-        <ul id="episode_list">
-            <!-- Daftar episode akan ditambahkan melalui JavaScript -->
+    {% for film in series %}
+    <div class="film-details">
+        <h1>Judul: <span id="judul">{{ film.judul }}</span></h1>
+    </div>
+    <div class="film-details">
+        <h1>Sub Judul: <span id="sub_judul">{{ film.sub_judul }}</span></h1>
+    </div>
+    <div class="section">
+        <p>Episode:</p>
+        <ul id="episode">
+            {% for episode in film.episodes %}
+                <li>{{ episode }}</li>
+            {% endfor %}
         </ul>
-        <p><span class="info-label">Sinopsis Episode:</span> <span id="sinopsis"></span></p>
-        <p><span class="info-label">Durasi Episode:</span> <span id="durasi"></span></p>
-        <p><span class="info-label">URL Episode:</span> <a href="#" id="url_film">Link</a></p>
-        <p><span class="info-label">Tanggal Rilis Episode:</span> <span id="tanggal_rilis"></span></p>
     </div>
 
-    <script>
-        // Fungsi untuk menambahkan data film ke dalam elemen HTML
-        function tambahkanDataFilm(data) {
-            document.getElementById('judul_film').innerText = data.judul;
-            document.getElementById('sub_judul_film').innerText = data.subjudul;
-            document.getElementById('sinopsis').innerText = data.sinopsis;
-            document.getElementById('durasi').innerText = data.durasi;
-            document.getElementById('tanggal_rilis').innerText = data.tanggal_rilis;
-            document.getElementById('url_film').href = data.url_film;
-            
-            // Menambahkan episode ke dalam daftar
-            var episodeList = document.getElementById('episode_list');
-            data.episode.forEach(function(episode) {
-                var li = document.createElement('li');
-                li.textContent = episode;
-                episodeList.appendChild(li);
-            });
-        }
+    <div class="divider">
+        ▬▬▬▬▬▬▬▬▬▬▬▬▬⚫-----------------------------------------
+    </div>
 
-        // Fungsi untuk menambahkan ulasan ke dalam daftar ulasan
+    <div class="buttons">
+        <button id="tonton">Tonton</button>
+    </div>
 
+    <div class="section">
+        <p>Sinopsis Episode: <span id="sinopsis">{{ film.sinopsis }}</span></p>
+        <p>Durasi Episode: <span id="durasi">{{ film.durasi_film }}</span></p>
+        <p>URL Episode: <a href="#" id="url-film">{{ film.url_video }}</a></p>
+        <p>Tanggal Rilis Episode: <span id="tanggal-rilis">{{ film.release_date_film }}</span></p>
+    </div>
 
-        // Simulasi data film
-        var dataSeries = {
-            judul: "Series Dummy",
-            subjudul: "Sub Judul Dummy",
-            episode: ["Episode 1", "Episode 2", "Episode 3"],
-            sinopsis: "Ini adalah sinopsis episode series dummy. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-            durasi: "30 menit",
-            tanggal_rilis: "15 Januari 2023",
-            url_film: "#",
-        };
-
-        // Menambahkan data film ke dalam halaman
-        tambahkanDataFilm(dataSeries);
-
-    </script>
 </body>
 </html>
+
 {% endblock content %}

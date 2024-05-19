@@ -35,22 +35,16 @@ def show_unduhan(request):
 def remove_unduhan(request):
     if request.method == 'POST':
         id_tayangan = request.POST.get('id_tayangan')
-        print('id_tayangan', id_tayangan)
         username = request.POST.get('username')
-        print('username', username)
 
         # Check if the video has been added for more than 1 day
         try:
             query_str = f"SELECT timestamp FROM tayangan_terunduh WHERE id_tayangan = '{id_tayangan}' AND username = '{username}';"
             result = query(query_str)
-            print('result', result)
             if result:
                 timestamp = result[0]['timestamp']
                 now = datetime.now()
                 time_difference = now - timestamp
-                print('timestamp', timestamp)
-                print('now', now)
-                print('time_difference', time_difference)
                 if time_difference.days >= 1:
                     print('Video has been added for more than 1 day, proceed with deletion')
                     # Video has been added for more than 1 day, proceed with deletion

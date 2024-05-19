@@ -24,7 +24,6 @@ def show_favorit(request):
 
 def remove_favorit(request):
     if request.method == 'POST':
-        print("llla")
         judul = request.POST.get('judul')
         username = request.POST.get('username')
         query_str = f"DELETE FROM daftar_favorit WHERE judul = '{judul}' AND username = '{username}';"
@@ -32,15 +31,12 @@ def remove_favorit(request):
     return redirect('show_favorit')
 
 def remove_detail(request):
-    print('masuk sini')
     if request.method == 'POST':
-        print('masuk sini')
         timestamp = request.POST.get('timestamp')
         username = request.POST.get('username')
         id = request.POST.get('id_tayangan')
         query_str = f"DELETE FROM tayangan_memiliki_daftar_favorit WHERE timestamp = '{timestamp}' AND username = '{username}' AND id_tayangan = '{id}';"
         res=query(query_str)
-        print(res)
     return redirect('show_favorit')
 
 def show_favorit_detail(request, judul):
