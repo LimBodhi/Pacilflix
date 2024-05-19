@@ -142,11 +142,33 @@
     <div class="section">
         <p>Sutradara: <span id="sutradara">{{ film.sutradara }}</span></p>
     </div>
+    {% endfor %}
 
     <div class="section" id="ulasan">
         <h2>Bagian Ulasan</h2>
-        
     </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Rating</th>
+                <th>Deskripsi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ulasan in ulasans %}
+            <tr class="border-t border-gray-700">
+                <td>{{ ulasan.username }}</td>
+                <td>{{ ulasan.rating }}</td>
+                <td>{{ ulasan.deskripsi }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Tidak ada ulasan yang ditemukan.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 </body>
 </html>
 

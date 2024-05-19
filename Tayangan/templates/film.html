@@ -142,8 +142,35 @@
 
     <div class="section" id="ulasan">
         <h2>Bagian Ulasan</h2>
-        
     </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Rating</th>
+                <th>Deskripsi</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for ulasan in ulasans %}
+            <tr class="border-t border-gray-700">
+                <td>{{ ulasan.username }}</td>
+                <td>{{ ulasan.rating }}</td>
+                <td>{{ ulasan.deskripsi }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">Tidak ada ulasan yang ditemukan.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <form method="get" class="flex justify-center mb-8">
+        {% csrf_token %}
+        <input type="hidden" name="username" value="{{  }}">
+        <button type="submit" class="ml-4 bg-pink-500 hover:bg-red-500 text-white font-bold py-2 px-4 rounded">Tonton</button>
+    </form>
+
 </body>
 </html>
 

@@ -55,7 +55,7 @@ def show_tayangan(request):
                         t.sinopsis_trailer, 
                         t.url_video_trailer, 
                         t.release_date_trailer, 
-                        generate_series(1, 10) AS total_view FROM TAYANGAN t LIMIT 10;"""
+                        generate_series(1, 10) AS total_view, t.id FROM TAYANGAN t LIMIT 10;"""
     hasil = query(query_str)
     # for data in hasil:
     #     data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
@@ -84,23 +84,126 @@ def show_halaman_tayangan(request):
             cursor.execute("SELECT COUNT(*) FROM episode WHERE id_series = %s", [id_tayangan])
             episode_count = cursor.fetchone()[0]
     if film_count > 0:
-        return redirect('show_film', film_id=id_tayangan)
+        return redirect('Tayangan:show_film', id_film=id_tayangan)
     elif episode_count > 0:
-        return redirect('show_series', series_id=id_tayangan)
+        return redirect('Tayangan:show_series', id_series=id_tayangan)
     else:
         return redirect('page_not_found')
     
 def show_film(request):
     if request.method == 'POST':
         id_film = request.POST.get('id_film')
-    query_str = f" SELECT t.judul, EXTRACT(EPOCH FROM (rn.end_date_time - rn.start_date_time)) >= 0.7 * (WHEN f.id_tayangan IS NOT NULL THEN f.durasi_film * 60) AS total_view, AVG(u.rating) AS rata_rata_rating, t.sinopsis, f.durasi_film, f.release_date_film, f.url_video_film, ARRAY_AGG(gt.genre) AS genres, t.asal_negara, ARRAY_AGG(cp.nama) AS pemains, ARRAY_AGG(cps.nama) AS penulis_skenario, cs.nama AS sutradara FROM TAYANGAN t JOIN FILM f ON f.id_tayangan = t.id JOIN RIWAYAT_NONTON rn ON rn.id_tayangan = t.id JOIN ULASAN u ON u.id_tayangan = t.id JOIN GENRE_TAYANGAN gt ON gt.id_tayangan = t.id JOIN MEMAINKAN_TAYANGAN mt ON mt.id_tayangan = t.id JOIN MENULISKAN_SKENARIO_TAYANGAN mst ON mst.id_tayangan = t.id JOIN CONTRIBUTORS cp ON cp.id = mt.id_pemain JOIN CONTRIBUTORS cps ON cps.id = mst.id_penulis_skenario JOIN CONTRIBUTORS cs ON cs.id = t.id_sutradara WHERE id_tayangan = '{id_film}';"
+
+    query_str = f"""
+    SELECT 
+        t.judul, 
+        COUNT(*) AS total_view, 
+        ROUND(AVG(u.rating), 2) AS rata_rata_rating, 
+        t.sinopsis, 
+        f.durasi_film, 
+        f.release_date_film, 
+        f.url_video_film, 
+        ARRAY_AGG(DISTINCT gt.genre) AS genres, 
+        t.asal_negara, 
+        ARRAY_AGG(DISTINCT cp.nama) AS pemains, 
+        ARRAY_AGG(DISTINCT cps.nama) AS penulis_skenario, 
+        cs.nama AS sutradara
+    FROM 
+        TAYANGAN t 
+    JOIN 
+        FILM f ON f.id_tayangan = t.id 
+    LEFT JOIN 
+        RIWAYAT_NONTON rn ON rn.id_tayangan = t.id 
+    LEFT JOIN 
+        ULASAN u ON u.id_tayangan = t.id 
+    LEFT JOIN 
+        GENRE_TAYANGAN gt ON gt.id_tayangan = t.id 
+    LEFT JOIN 
+        MEMAINKAN_TAYANGAN mt ON mt.id_tayangan = t.id 
+    LEFT JOIN 
+        MENULIS_SKENARIO_TAYANGAN mst ON mst.id_tayangan = t.id 
+    LEFT JOIN 
+        CONTRIBUTORS cp ON cp.id = mt.id_pemain 
+    LEFT JOIN 
+        CONTRIBUTORS cps ON cps.id = mst.id_penulis_skenario 
+    LEFT JOIN 
+        CONTRIBUTORS cs ON cs.id = t.id_sutradara 
+    WHERE 
+        t.id = '{id_film}' 
+    AND 
+        EXTRACT(EPOCH FROM (rn.end_date_time - rn.start_date_time)) >= 0.7 * (
+            CASE 
+                WHEN f.id_tayangan IS NOT NULL THEN f.durasi_film * 60 
+                ELSE 0 
+            END
+        )
+    GROUP BY 
+        t.judul, t.sinopsis, f.durasi_film, f.release_date_film, f.url_video_film, t.asal_negara, cs.nama;
+    """
+
     hasil = query(query_str)
-    return render(request, 'film.html', {'films': hasil})
+    query_str_ulasan = ''' SELECT ulasan.username, ulasan.deskripsi, ulasan.rating, ulasan.timestamp 
+                    FROM ULASAN 
+                    JOIN TAYANGAN ON tayangan.id = ulasan.id_tayangan
+                    ORDER BY ulasan.timestamp DESC;
+                '''
+    hasil_ulasan = query(query_str_ulasan)
+    for data in hasil_ulasan:
+        data['formatted_timestamp'] = data['timestamp'].strftime("%Y-%m-%d %H:%M:%S")
+
+    return render(request, 'film.html', {'films': hasil, 'ulasans':hasil_ulasan})
 
 def show_series(request):
     if request.method == 'POST':
         id_series = request.POST.get('id_series')
-    query_str = f" WITH TotalDurationEpisode AS (SELECT e.id_series, SUM(e.durasi * 60) AS total_duration FROM EPISODE e GROUP BY e.id_series) SELECT t.judul, ARRAY_AGG(e.url_video) AS episodes, EXTRACT(EPOCH FROM (rn.end_date_time - rn.start_date_time)) >= 0.7 * (e.total_duration) AS total_view, AVG(u.rating) AS rata_rata_rating, t.sinopsis, ARRAY_AGG(gt.genre) AS genres, t.asal_negara, ARRAY_AGG(cp.nama) AS pemains, ARRAY_AGG(cps.nama) AS penulis_skenario, cs.nama AS sutradara FROM TAYANGAN t JOIN SERIES s ON s.id_tayangan = t.id JOIN EPISODE e ON e.id_series = t.id JOIN RIWAYAT_NONTON rn ON rn.id_tayangan = t.id JOIN ULASAN u ON u.id_tayangan = t.id JOIN GENRE_TAYANGAN gt ON gt.id_tayangan = t.id JOIN MEMAINKAN_TAYANGAN mt ON mt.id_tayangan = t.id JOIN MENULISKAN_SKENARIO_TAYANGAN mst ON mst.id_tayangan = t.id JOIN CONTRIBUTORS cp ON cp.id = mt.id_pemain JOIN CONTRIBUTORS cps ON cps.id = mst.id_penulis_skenario JOIN CONTRIBUTORS cs ON cs.id = t.id_sutradara WHERE s.id_tayangan = '{id_series}';"
+    
+    query_str = f"""
+    SELECT 
+        t.judul, 
+        ARRAY_AGG(DISTINCT e.url_video) AS episodes, 
+        COUNT(*) AS total_view, 
+        ROUND(AVG(u.rating), 2) AS rata_rata_rating, 
+        t.sinopsis, 
+        ARRAY_AGG(DISTINCT gt.genre) AS genres, 
+        t.asal_negara, 
+        ARRAY_AGG(DISTINCT cp.nama) AS pemains, 
+        ARRAY_AGG(DISTINCT cps.nama) AS penulis_skenario, 
+        cs.nama AS sutradara
+    FROM 
+        TAYANGAN t 
+    JOIN 
+        SERIES s ON s.id_tayangan = t.id 
+    LEFT JOIN 
+        EPISODE e ON e.id_series = s.id_tayangan 
+    LEFT JOIN 
+        RIWAYAT_NONTON rn ON rn.id_tayangan = t.id 
+    LEFT JOIN 
+        ULASAN u ON u.id_tayangan = t.id 
+    LEFT JOIN 
+        GENRE_TAYANGAN gt ON gt.id_tayangan = t.id 
+    LEFT JOIN 
+        MEMAINKAN_TAYANGAN mt ON mt.id_tayangan = t.id 
+    LEFT JOIN 
+        MENULIS_SKENARIO_TAYANGAN mst ON mst.id_tayangan = t.id 
+    LEFT JOIN 
+        CONTRIBUTORS cp ON cp.id = mt.id_pemain 
+    LEFT JOIN 
+        CONTRIBUTORS cps ON cps.id = mst.id_penulis_skenario 
+    LEFT JOIN 
+        CONTRIBUTORS cs ON cs.id = t.id_sutradara 
+    WHERE 
+        s.id_tayangan = '{id_series}'
+    AND 
+        EXTRACT(EPOCH FROM (rn.end_date_time - rn.start_date_time)) >= 0.7 * (
+            CASE 
+                WHEN s.id_tayangan IS NOT NULL THEN SUM(e.durasi) * 60 
+                ELSE 0 
+            END
+        )
+    GROUP BY 
+        t.judul, t.sinopsis, t.asal_negara, cs.nama, total_view;
+    """
+    
     hasil = query(query_str)
     return render(request, 'series.html', {'series': hasil})
 
